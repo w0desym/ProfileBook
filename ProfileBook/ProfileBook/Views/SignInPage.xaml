@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:dataForm="clr-namespace:Syncfusion.XForms.DataForm;assembly=Syncfusion.SfDataForm.XForms"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="ProfileBook.Views.SignInPage"
+             Title="{Binding Title}">
+
+    <StackLayout VerticalOptions="Center">
+        <dataForm:SfDataForm 
+            x:Name="dataForm" 
+            LayoutOptions="TextInputLayout"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            DataObject="{Binding AuthorizationInfo}"/>
+        <buttons:SfButton 
+            Text="Sign In"
+            FontSize="18"
+            x:Name="SignInButton"
+            HorizontalOptions="Center"
+            WidthRequest="100" 
+            HeightRequest="50"
+            CornerRadius="8"
+            BackgroundColor="DeepSkyBlue"/>
+        <Label 
+            HorizontalOptions="Center"
+            VerticalOptions="FillAndExpand"
+            FontSize="16"
+            Margin="0,50,0,0">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Not registered yet? "/>
+                    <Span 
+                        Text="Sign up"
+                        TextColor="Blue"
+                        TextDecorations="Underline">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SignUpClickCommand}"/>
+                        </Span.GestureRecognizers>
+                    </Span>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </StackLayout>
+</ContentPage>
