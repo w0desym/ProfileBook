@@ -7,6 +7,20 @@
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="ProfileBook.Views.AddProfilePage"
              Title="{Binding Title}">
-    
+    <StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <dataForm:SfDataForm 
+                x:Name="dataForm" 
+                LayoutOptions="TextInputLayout" 
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                DataObject="{Binding RegistrationInfo}"
+                Grid.Row="1"/>
+        </Grid>
+    </StackLayout>
   
 </ContentPage>

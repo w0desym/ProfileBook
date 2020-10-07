@@ -10,7 +10,7 @@
 
     <StackLayout VerticalOptions="Center">
         <dataForm:SfDataForm 
-            x:Name="dataForm" 
+            x:Name="signInForm" 
             LayoutOptions="TextInputLayout"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
@@ -18,7 +18,7 @@
         <buttons:SfButton 
             Text="Sign In"
             FontSize="18"
-            x:Name="SignInButton"
+            x:Name="signInButton"
             HorizontalOptions="Center"
             WidthRequest="100" 
             HeightRequest="50"

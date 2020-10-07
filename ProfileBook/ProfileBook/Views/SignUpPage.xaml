@@ -15,7 +15,7 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <dataForm:SfDataForm 
-                x:Name="dataForm" 
+                x:Name="signUpForm" 
                 LayoutOptions="TextInputLayout" 
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
@@ -25,7 +25,7 @@
         <buttons:SfButton 
             Text="Sign Up"
             FontSize="18"
-            x:Name="SignInButton"
+            x:Name="signUpButton"
             WidthRequest="100" 
             HeightRequest="50"
             HorizontalOptions="Center"
