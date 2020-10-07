@@ -1,13 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Syncfusion.Licensing" Version="18.3.0.35" />
-    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.3.0.35" />
-    <PackageReference Include="Syncfusion.Xamarin.SfDataForm" Version="18.3.0.35" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.7.335" />
+    <PackageReference Include="Syncfusion.Licensing" Version="18.3.0.38" />
+    <PackageReference Include="Syncfusion.Xamarin.Buttons" Version="18.3.0.38" />
+    <PackageReference Include="Syncfusion.Xamarin.SfDataForm" Version="18.3.0.38" />
+    <PackageReference Include="Syncfusion.Xamarin.SfListView" Version="18.3.0.38" />
     <PackageReference Include="Xamarin.Essentials.Interfaces" Version="1.5.3.2" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
     <PackageReference Include="Xamarin.Forms" Version="4.8.0.1451" />
@@ -20,6 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Views\MainListPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Views\SignInPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>

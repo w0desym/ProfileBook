@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="http://prismlibrary.com"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             xmlns:local="clr-namespace:ProfileBook;assembly=ProfileBook"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
+             x:Class="ProfileBook.Views.MainListPage"
+             Title="{Binding Title}">
+    <ContentPage.BindingContext>
+        <local:ProfileRepository />
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <syncfusion:SfListView 
+                x:Name="profilesList"
+                ItemsSource="{Binding Profile}"
+                Grid.Row="0"
+                ItemSize="100"
+                IsEnabled="False">
+                <syncfusion:SfListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="0.4*"/>
+                                <RowDefinition Height="0.6*"/>
+                            </Grid.RowDefinitions>
+                            <Label 
+                                Text="{Binding Name}" 
+                                FontAttributes="Bold"
+                                TextColor="Teal"
+                                FontSize="21"
+                                Grid.Row="0"
+                                />
+                            <Label 
+                                Grid.Row="1"
+                                Text="{Binding Description}"
+                                TextColor="Teal"
+                                FontSize="15"/>
+                        </Grid>
+                    </DataTemplate>
+                </syncfusion:SfListView.ItemTemplate>
+            </syncfusion:SfListView>
+            <buttons:SfButton
+                Grid.Row="1"
+                ShowIcon="True"
+                BackgroundImage="plus.png"
+                HorizontalOptions="End"
+                VerticalOptions="End"
+                Margin="0,0,30,30" 
+                HeightRequest="70"
+                WidthRequest="70"
+                CornerRadius="35"
+                HasShadow="True"
+                Command="{Binding Add}"/>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>

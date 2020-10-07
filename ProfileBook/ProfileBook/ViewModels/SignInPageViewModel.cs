@@ -3,13 +3,15 @@ using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace ProfileBook.ViewModels
 {
-    public class SignInPageViewModel : ViewModelBase
+    public class SignInPageViewModel : ViewModelBase, INotifyPropertyChanged
     {
         #region AuthorizationInfo
         private AuthorizationInfo authorizationInfo;
