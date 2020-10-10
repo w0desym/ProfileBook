@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ProfileBook.Services.Authentication
+﻿namespace ProfileBook
 {
-    interface IAuthenticationService
+    public interface IAuthenticationService
     {
     }
 }

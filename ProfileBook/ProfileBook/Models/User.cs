@@ -6,13 +6,13 @@ using System.Text;
 
 namespace ProfileBook
 {
-    public class RegistrationInfo : INotifyPropertyChanged
+    public class User : INotifyPropertyChanged
     {
         private string login;
         private string password;
         private string checkPassword;
 
-        public RegistrationInfo()
+        public User()
         {
 
         }
@@ -25,8 +25,10 @@ namespace ProfileBook
             set
             {
                 this.login = value;
+                this.RaisePropertyChanged("Login");
             }
         }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "This field should not be empty")]
         [StringLength(30, ErrorMessage = "Password should not exceed 30 characters")]
         public string Password
@@ -35,6 +37,7 @@ namespace ProfileBook
             set
             {
                 this.password = value;
+                this.RaisePropertyChanged("Password");
             }
         }
 
@@ -46,9 +49,15 @@ namespace ProfileBook
             set
             {
                 this.checkPassword = value;
+                this.RaisePropertyChanged("CheckPassword");
             }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+        private void RaisePropertyChanged(String Name)
+        {
+            if (PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(Name));
+        }
     }
 }

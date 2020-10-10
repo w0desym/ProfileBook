@@ -2,11 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:local="clr-namespace:ProfileBook"
              xmlns:dataForm="clr-namespace:Syncfusion.XForms.DataForm;assembly=Syncfusion.SfDataForm.XForms"
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ProfileBook.Views.SignInPage"
              Title="{Binding Title}">
+    
+    <ContentPage.Behaviors>
+        <local:SignInBehavior/>
+    </ContentPage.Behaviors>
 
     <StackLayout VerticalOptions="Center">
         <dataForm:SfDataForm 
@@ -14,7 +19,8 @@
             LayoutOptions="TextInputLayout"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
-            DataObject="{Binding AuthorizationInfo}"/>
+            DataObject="{Binding Authorization}"
+            HeightRequest="180"/>
         <buttons:SfButton 
             Text="Sign In"
             FontSize="18"
@@ -23,7 +29,9 @@
             WidthRequest="100" 
             HeightRequest="50"
             CornerRadius="8"
-            BackgroundColor="DeepSkyBlue"/>
+            BackgroundColor="DeepSkyBlue"
+            IsEnabled="False"
+            Command="{Binding SignInClickCommand}"/>
         <Label 
             HorizontalOptions="Center"
             VerticalOptions="FillAndExpand"

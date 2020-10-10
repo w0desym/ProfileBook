@@ -1,28 +1,42 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Prism.Navigation;
+using System.Windows.Input;
+using Xamarin.Forms;
 
 namespace ProfileBook.ViewModels
 {
     public class SignUpPageViewModel : ViewModelBase
     {
-        #region RegistrationInfo
-        private RegistrationInfo registrationInfo;
-        public RegistrationInfo RegistrationInfo
+        private User registration;
+        public User Registration
         {
-            get { return this.registrationInfo; }
-            set { this.registrationInfo = value; }
+            get { return this.registration; }
+            set
+            {
+                this.registration = value;
+                this.RaisePropertyChanged("Registration");
+            }
         }
-        #endregion
 
-        public SignUpPageViewModel(INavigationService navigationService) 
+        private INavigationService _navigationService;
+        private IAuthenticationService _authenticationService;
+        public SignUpPageViewModel(INavigationService navigationService,
+            IAuthenticationService authenticationService) 
             : base(navigationService)
         {
             Title = "Signing Up";
-            this.registrationInfo = new RegistrationInfo();
+
+            _navigationService = navigationService;
+            _authenticationService = authenticationService;
+
+            this.Registration = new User();
         }
+
+        public ICommand SignUpClickCommand => new Command(async () =>
+        {
+            //sign up logic
+
+            //navigation back
+            await _navigationService.GoBackAsync();
+        });
     }
 }

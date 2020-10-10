@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProfileBook.Services.Settings
+namespace ProfileBook
 {
-    class SettingsManager
+    class SettingsManager : ISettingsManager
     {
     }
 }

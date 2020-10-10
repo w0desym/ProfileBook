@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace ProfileBook.Services.Settings
+﻿namespace ProfileBook
 {
-    interface ISettingsManager
+    public interface ISettingsManager
     {
     }
 }

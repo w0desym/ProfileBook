@@ -11,16 +11,26 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="150"/>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="250" />
             </Grid.RowDefinitions>
             <dataForm:SfDataForm 
                 x:Name="dataForm" 
-                LayoutOptions="TextInputLayout" 
+                LayoutOptions="Default"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
-                DataObject="{Binding RegistrationInfo}"
+                DataObject="{Binding Profile}"
                 Grid.Row="1"/>
         </Grid>
+        <buttons:SfButton 
+            x:Name="addButton"
+            Text="Add"
+            FontSize="18"
+            HorizontalOptions="Center"
+            WidthRequest="100" 
+            HeightRequest="50"
+            CornerRadius="8"
+            BackgroundColor="DeepSkyBlue"
+            Command="{Binding Add}"/>
     </StackLayout>
   
 </ContentPage>

@@ -8,46 +8,43 @@
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="ProfileBook.Views.MainListPage"
              Title="{Binding Title}">
-    
 
-    <ContentPage.BindingContext>
-        <local:ProfileRepository />
-    </ContentPage.BindingContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <ScrollView Grid.Row="0">
-            <syncfusion:SfListView
-                x:Name="profilesList"
-                ItemsSource="{Binding Profile}"
-                Grid.Row="0"
-                ItemSize="100"
-                IsEnabled="False">
-                <syncfusion:SfListView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid Padding="10">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="0.4*"/>
-                                <RowDefinition Height="0.6*"/>
-                            </Grid.RowDefinitions>
-                            <Label 
-                                Text="{Binding Name}" 
-                                FontAttributes="Bold"
-                                TextColor="Teal"
-                                FontSize="21"
-                                Grid.Row="0"/>
-                            <Label 
-                                Text="{Binding Description}"
-                                TextColor="Teal"
-                                FontSize="15"
-                                Grid.Row="1"/>
-                        </Grid>
-                    </DataTemplate>
-                </syncfusion:SfListView.ItemTemplate>
-            </syncfusion:SfListView>
-        </ScrollView>
+        <syncfusion:SfListView
+            x:Name="profilesList"
+            ItemsSource="{Binding ProfileCollection, Mode=TwoWay}"
+            Grid.Row="0"
+            ItemSize="80"
+            IsEnabled="True"
+            VerticalOptions="FillAndExpand"
+            HorizontalOptions="FillAndExpand"
+            AllowSwiping="True">
+            <syncfusion:SfListView.ItemTemplate IsEnabled="False">
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.4*"/>
+                            <RowDefinition Height="0.6*"/>
+                        </Grid.RowDefinitions>
+                        <Label
+                            Text="{Binding Id}"
+                            FontAttributes="Bold"
+                            TextColor="Teal"
+                            FontSize="21"
+                            Grid.Row="0"/>
+                        <Label
+                            Text="{Binding Name}"
+                            TextColor="Teal"
+                            FontSize="15"
+                            Grid.Row="1"/>
+                    </Grid>
+                </DataTemplate>
+            </syncfusion:SfListView.ItemTemplate>
+        </syncfusion:SfListView>
 
         <buttons:SfButton
             x:Name="addNewProfile"

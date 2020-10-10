@@ -12,21 +12,6 @@ namespace ProfileBook
 {
     public partial class App
     {
-        public const string DATABASE_NAME = "profiles.db";
-        public static ProfileRepository database;
-        public static ProfileRepository Database
-        {
-            get
-            {
-                if (database == null)
-                {
-                    database = new ProfileRepository(
-                        Path.Combine(
-                            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), DATABASE_NAME));
-                }
-                return database;
-            }
-        }
 
         public App(IPlatformInitializer initializer)
             : base(initializer)
@@ -39,7 +24,7 @@ namespace ProfileBook
 
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/MainListPage");
+            await NavigationService.NavigateAsync("NavigationPage/SignInPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -51,6 +36,15 @@ namespace ProfileBook
             containerRegistry.RegisterForNavigation<SignUpPage, SignUpPageViewModel>();
             containerRegistry.RegisterForNavigation<MainListPage, MainListPageViewModel>();
             containerRegistry.RegisterForNavigation<AddProfilePage, AddProfilePageViewModel>();
+            containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
+
+            containerRegistry.RegisterInstance<IAuthenticationService>(Container.Resolve<AuthenticationService>());
+            containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
+            containerRegistry.RegisterInstance<IProfileService>(Container.Resolve<ProfileService>());
+            containerRegistry.RegisterInstance<IRepositoryService>(Container.Resolve<RepositoryService>());
+            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
+
+            
         }
     }
 }

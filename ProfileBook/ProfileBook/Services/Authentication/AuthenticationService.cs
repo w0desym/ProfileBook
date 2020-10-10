@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProfileBook.Services.Authentication
+namespace ProfileBook
 {
-    class AuthenticationService
+    class AuthenticationService : IAuthenticationService
     {
     }
 }

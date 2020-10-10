@@ -1,37 +1,40 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Navigation;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using Prism.Navigation;
 using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace ProfileBook.ViewModels
 {
-    public class SignInPageViewModel : ViewModelBase, INotifyPropertyChanged
+    public class SignInPageViewModel : ViewModelBase
     {
-        #region AuthorizationInfo
-        private AuthorizationInfo authorizationInfo;
-        public AuthorizationInfo AuthorizationInfo
+        private User authorization;
+        public User Authorization
         {
-            get { return this.authorizationInfo; }
-            set { this.authorizationInfo = value; }
+            get { return this.authorization; }
+            set
+            {
+                this.authorization = value;
+                this.RaisePropertyChanged("Authorization");
+            }
         }
-        #endregion
 
         private INavigationService _navigationService;
-        public SignInPageViewModel(INavigationService navigationService)
+        private IAuthorizationService _authorizationService;
+        private IAuthenticationService _authenticationService;
+        public SignInPageViewModel(INavigationService navigationService, 
+            IAuthorizationService authorizationService, 
+            IAuthenticationService authenticationService)
             : base(navigationService)
         {
             Title = "Signing In";
-            this.authorizationInfo = new AuthorizationInfo();
+            
             _navigationService = navigationService;
+            _authorizationService = authorizationService;
+            _authenticationService = authenticationService;
+
+            this.Authorization = new User();
         }
 
-        public ICommand SignUpClickCommand => new Command<string>(async (url) =>
+        public ICommand SignUpClickCommand => new Command(async () =>
         {
             await _navigationService.NavigateAsync("SignUpPage");
         });
