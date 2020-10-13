@@ -9,5 +9,6 @@ namespace ProfileBook
         int DeleteItem(int id);
         int DeleteAllItems();
         int SaveItem(Profile item);
+        int SaveUser(User item);
     }
 }

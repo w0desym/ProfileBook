@@ -7,18 +7,19 @@
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="ProfileBook.Views.AddProfilePage"
              Title="{Binding Title}">
+
     <StackLayout>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="150"/>
-                <RowDefinition Height="250" />
+                <RowDefinition Height="250"/>
             </Grid.RowDefinitions>
             <dataForm:SfDataForm 
                 x:Name="dataForm" 
                 LayoutOptions="Default"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
-                DataObject="{Binding Profile}"
+                DataObject="{Binding Profile, Mode=TwoWay}"
                 Grid.Row="1"/>
         </Grid>
         <buttons:SfButton 

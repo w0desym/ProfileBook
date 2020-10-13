@@ -6,34 +6,52 @@ namespace ProfileBook.ViewModels
 {
     public class SignInPageViewModel : ViewModelBase
     {
-        private User authorization;
-        public User Authorization
+        private User signIn;
+        public User SignIn
         {
-            get { return this.authorization; }
+            get { return this.signIn; }
             set
             {
-                this.authorization = value;
-                this.RaisePropertyChanged("Authorization");
+                this.signIn = value;
+                this.RaisePropertyChanged("SignIn");
             }
         }
 
         private INavigationService _navigationService;
-        private IAuthorizationService _authorizationService;
         private IAuthenticationService _authenticationService;
-        public SignInPageViewModel(INavigationService navigationService, 
-            IAuthorizationService authorizationService, 
-            IAuthenticationService authenticationService)
+        private ISettingsManager _settingsManager;
+
+        public SignInPageViewModel(INavigationService navigationService,
+            IAuthenticationService authenticationService,
+            ISettingsManager settingsManager)
             : base(navigationService)
         {
             Title = "Signing In";
-            
+            this.SignIn = new User();
             _navigationService = navigationService;
-            _authorizationService = authorizationService;
             _authenticationService = authenticationService;
-
-            this.Authorization = new User();
+            _settingsManager = settingsManager;
+            
         }
 
+        public ICommand SignInClickCommand => new Command(async () =>
+        {
+            int id = _authenticationService.Authenticate(SignIn.Login, SignIn.Password);
+            if(id != 0)
+            {
+                //var navParams = new NavigationParameters();
+                //navParams.Add("_id", id);
+                _settingsManager.CurrentUser = id;
+                await _navigationService.NavigateAsync("/NavigationPage/MainListPage"); //no params
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Whoops..", "Something went wrong.", "OK");
+                //Authorization.Password = null;
+            }
+
+
+        });
         public ICommand SignUpClickCommand => new Command(async () =>
         {
             await _navigationService.NavigateAsync("SignUpPage");

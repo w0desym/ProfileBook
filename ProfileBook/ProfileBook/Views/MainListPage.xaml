@@ -4,47 +4,73 @@
              xmlns:prism="http://prismlibrary.com"
              xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              xmlns:local="clr-namespace:ProfileBook;assembly=ProfileBook"
+             x:Name="this"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="ProfileBook.Views.MainListPage"
              Title="{Binding Title}">
-
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Order="Primary"
+            Priority="1"
+            Command="{Binding LogOut}"
+            IconImageSource="ic_exit_to_app.png"/>
+        <ToolbarItem
+            Order="Primary"
+            Priority="1"
+            Command="{Binding Settings}"
+            IconImageSource="ic_settings.png"/>
+    </ContentPage.ToolbarItems>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <syncfusion:SfListView
+        <ListView
             x:Name="profilesList"
-            ItemsSource="{Binding ProfileCollection, Mode=TwoWay}"
+            ItemsSource="{Binding ProfileCollection}"
             Grid.Row="0"
-            ItemSize="80"
-            IsEnabled="True"
+            RowHeight="70"
             VerticalOptions="FillAndExpand"
-            HorizontalOptions="FillAndExpand"
-            AllowSwiping="True">
-            <syncfusion:SfListView.ItemTemplate IsEnabled="False">
+            HorizontalOptions="FillAndExpand">
+            <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="0.4*"/>
-                            <RowDefinition Height="0.6*"/>
-                        </Grid.RowDefinitions>
-                        <Label
-                            Text="{Binding Id}"
-                            FontAttributes="Bold"
-                            TextColor="Teal"
-                            FontSize="21"
-                            Grid.Row="0"/>
-                        <Label
-                            Text="{Binding Name}"
-                            TextColor="Teal"
-                            FontSize="15"
-                            Grid.Row="1"/>
-                    </Grid>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem
+                                Text="Edit"
+                                Command="{Binding Source={x:Reference this}, Path=BindingContext.Edit}"
+                                CommandParameter="{Binding .}"/>
+                            <MenuItem
+                                Text="Delete"
+                                Command="{Binding Source={x:Reference this}, Path=BindingContext.Delete}"
+                                CommandParameter="{Binding .}"/>
+                        </ViewCell.ContextActions>
+                        <ViewCell.View>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="0.4*"/>
+                                    <RowDefinition Height="0.6*"/>
+                                </Grid.RowDefinitions>
+                                <Label
+                                    Text="{Binding Nickname}"
+                                    FontAttributes="Bold"
+                                    TextColor="Teal"
+                                    FontSize="21"
+                                    Grid.Row="0"/>
+                                <Label
+                                    Text="{Binding Name}"
+                                    TextColor="Teal"
+                                    FontSize="15"
+                                    Grid.Row="1"/>
+                            </Grid>
+                        </ViewCell.View>
+                    </ViewCell>
                 </DataTemplate>
-            </syncfusion:SfListView.ItemTemplate>
-        </syncfusion:SfListView>
+            </ListView.ItemTemplate>
+        </ListView>
 
         <buttons:SfButton
             x:Name="addNewProfile"

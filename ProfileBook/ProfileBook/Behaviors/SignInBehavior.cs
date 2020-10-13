@@ -10,13 +10,15 @@ namespace ProfileBook
     public class SignInBehavior : Behavior<ContentPage>
     {
         SfDataForm signInForm;
-        SfButton button;
+        //SfButton button;
+        //Profile property;
+
 
         protected override void OnAttachedTo(ContentPage bindable)
         {
             base.OnAttachedTo(bindable);
             signInForm = bindable.FindByName<SfDataForm>("signInForm");
-            button = bindable.FindByName<SfButton>("signInButton");
+            //button = bindable.FindByName<SfButton>("signInButton");
             
             signInForm.AutoGeneratingDataFormItem += SignInForm_AutoGeneratingDataFormItem;
             signInForm.Validated += SignInForm_Validated;
@@ -24,11 +26,13 @@ namespace ProfileBook
 
         private void SignInForm_Validated(object sender, ValidatedEventArgs e)
         {
-            button.IsEnabled = (sender as SfDataForm).ItemManager.DataFormItems.TrueForAll(x => (x as DataFormItem).IsValid);
+            //button.IsEnabled = (sender as SfDataForm).ItemManager.DataFormItems.TrueForAll(x => (x as DataFormItem).IsValid);
         }
 
         private void SignInForm_AutoGeneratingDataFormItem(object sender, AutoGeneratingDataFormItemEventArgs e)
         {
+            if (e.DataFormItem.Name == "Id")
+                e.DataFormItem.IsVisible = false;
             if (e.DataFormItem.Name == "CheckPassword")
                 e.DataFormItem.IsVisible = false;
         }

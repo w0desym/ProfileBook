@@ -19,8 +19,9 @@
             LayoutOptions="TextInputLayout"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
-            DataObject="{Binding Authorization}"
-            HeightRequest="180"/>
+            DataObject="{Binding SignIn, Mode=TwoWay}"
+            HeightRequest="180"
+            CommitMode="LostFocus"/>
         <buttons:SfButton 
             Text="Sign In"
             FontSize="18"

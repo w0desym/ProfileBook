@@ -24,7 +24,7 @@
                 LayoutOptions="TextInputLayout" 
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
-                DataObject="{Binding Registration}"
+                DataObject="{Binding SignUp}"
                 Grid.Row="1"/>
         </Grid>
         <buttons:SfButton

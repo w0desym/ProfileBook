@@ -7,11 +7,15 @@ using Xamarin.Essentials.Implementation;
 using Xamarin.Forms;
 using System.IO;
 using System;
+using Plugin.Settings.Abstractions;
+using Plugin.Settings;
 
 namespace ProfileBook
 {
     public partial class App
     {
+        public static string DefaultImageId = "default_image";
+        public static string ImageIdToSave = null;
 
         public App(IPlatformInitializer initializer)
             : base(initializer)
@@ -38,13 +42,16 @@ namespace ProfileBook
             containerRegistry.RegisterForNavigation<AddProfilePage, AddProfilePageViewModel>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
 
+            containerRegistry.RegisterInstance<ISettings>(CrossSettings.Current);
+
+            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             containerRegistry.RegisterInstance<IAuthenticationService>(Container.Resolve<AuthenticationService>());
+            containerRegistry.RegisterInstance<IRepositoryService>(Container.Resolve<RepositoryService>());
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
             containerRegistry.RegisterInstance<IProfileService>(Container.Resolve<ProfileService>());
-            containerRegistry.RegisterInstance<IRepositoryService>(Container.Resolve<RepositoryService>());
-            containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
 
-            
+
+
         }
     }
 }

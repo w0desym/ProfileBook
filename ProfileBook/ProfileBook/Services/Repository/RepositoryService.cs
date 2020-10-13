@@ -13,8 +13,9 @@ namespace ProfileBook
         public RepositoryService()
         {
             database = new SQLiteConnection(Path.Combine(
-                            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ProfileBookDB.db"));
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ProfileBookSQLite.db"));
             database.CreateTable<Profile>();
+            database.CreateTable<User>();
         }
         public IEnumerable<Profile> GetItems()
         {
@@ -33,6 +34,18 @@ namespace ProfileBook
             return database.DeleteAll<Profile>();
         }
         public int SaveItem(Profile item)
+        {
+            if (item.Id != 0)
+            {
+                database.Update(item);
+                return item.Id;
+            }
+            else
+            {
+                return database.Insert(item);
+            }
+        }
+        public int SaveUser(User item)
         {
             if (item.Id != 0)
             {

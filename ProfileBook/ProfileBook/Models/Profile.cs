@@ -1,45 +1,12 @@
 ﻿using SQLite;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
 namespace ProfileBook
 {
-    //public class Profile : INotifyPropertyChanged
-    //{
-    //    private string name;
-    //    private string description;
 
-    //    [PrimaryKey, AutoIncrement, Column("_id")]
-    //    public int Id { get; set; }
-    //    public string Name
-    //    {
-    //        get { return name; }
-    //        set
-    //        {
-    //            name = value;
-    //            OnPropertyChanged("Name");
-    //        }
-    //    }
-
-    //    public string Description
-    //    {
-    //        get { return description; }
-    //        set
-    //        {
-    //            description = value;
-    //            OnPropertyChanged("Description");
-    //        }
-    //    }
-
-    //    public event PropertyChangedEventHandler PropertyChanged;
-
-    //    public void OnPropertyChanged(string name)
-    //    {
-    //        if (this.PropertyChanged != null)
-    //            this.PropertyChanged(this, new PropertyChangedEventArgs(name));
-    //    }
-    //}
 
     public class Profile : INotifyPropertyChanged
     {
@@ -47,9 +14,13 @@ namespace ProfileBook
         {
 
         }
-
         private int id;
+        private int match_id;
+
+        private string img;
+        private string nickname;
         private string name;
+        private DateTime dateTime;
 
         [PrimaryKey, AutoIncrement, Display(AutoGenerateField = false)]
         public int Id
@@ -61,7 +32,35 @@ namespace ProfileBook
                 OnPropertyChanged("Id");
             }
         }
-
+        [Display(AutoGenerateField = false)]
+        public int Match_id
+        {
+            get { return match_id; }
+            set
+            {
+                match_id = value;
+                OnPropertyChanged("Match_id");
+            }
+        }
+        [Display(AutoGenerateField = false)]
+        public string Img
+        {
+            get { return img; }
+            set
+            {
+                img = value;
+                OnPropertyChanged("Img");
+            }
+        }
+        public string Nickname
+        {
+            get { return nickname; }
+            set
+            {
+                nickname = value;
+                OnPropertyChanged("Nickname");
+            }
+        }
         public string Name
         {
             get { return name; }
@@ -69,6 +68,15 @@ namespace ProfileBook
             {
                 name = value;
                 OnPropertyChanged("Name");
+            }
+        }
+        [Display(AutoGenerateField = false)]
+        public DateTime DateTime
+        {
+            get { return dateTime; }
+            set
+            {
+                dateTime = value;
             }
         }
 

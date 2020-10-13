@@ -12,10 +12,8 @@ namespace ProfileBook
         public AuthorizationService()
         {
             database = new SQLiteConnection(Path.Combine(
-                            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ProfileBookDB.db"));
-            database.CreateTable<Profile>();
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ProfileBookSQLite.db"));
         }
-
 
     }
 }
