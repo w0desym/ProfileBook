@@ -8,21 +8,19 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ProfileBook.Views.SignInPage"
              Title="{Binding Title}">
-    
-    <ContentPage.Behaviors>
-        <local:SignInBehavior/>
-    </ContentPage.Behaviors>
 
     <StackLayout VerticalOptions="Center">
         <dataForm:SfDataForm 
-            x:Name="signInForm" 
+            x:Name="signInForm"
+            ContainerType="None"
             LayoutOptions="TextInputLayout"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
             DataObject="{Binding SignIn, Mode=TwoWay}"
             HeightRequest="180"
             CommitMode="LostFocus"/>
-        <buttons:SfButton 
+        <buttons:SfButton
+            IsEnabled="{Binding IsOn, Mode=TwoWay}"
             Text="Sign In"
             FontSize="18"
             x:Name="signInButton"
@@ -31,7 +29,6 @@
             HeightRequest="50"
             CornerRadius="8"
             BackgroundColor="DeepSkyBlue"
-            IsEnabled="False"
             Command="{Binding SignInClickCommand}"/>
         <Label 
             HorizontalOptions="Center"
@@ -53,4 +50,7 @@
             </Label.FormattedText>
         </Label>
     </StackLayout>
+    <ContentPage.Behaviors>
+        <local:SignInBehavior/>
+    </ContentPage.Behaviors>
 </ContentPage>

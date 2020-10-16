@@ -13,30 +13,27 @@ namespace ProfileBook.ViewModels
             set
             {
                 this.signUp = value;
-                this.RaisePropertyChanged("Registration");
+                this.RaisePropertyChanged("SignUp");
             }
         }
 
         private INavigationService _navigationService;
         private IAuthenticationService _authenticationService;
-        private IRepositoryService _repositoryService;
+        private IAuthorizationService _authorizationService;
         public SignUpPageViewModel(INavigationService navigationService,
             IAuthenticationService authenticationService,
-            IRepositoryService repositoryService) 
+            IAuthorizationService authorizationService)
             : base(navigationService)
         {
             Title = "Signing Up";
             this.SignUp = new User();
             _navigationService = navigationService;
             _authenticationService = authenticationService;
-            _repositoryService = repositoryService;
-
-            
+            _authorizationService = authorizationService;
         }
 
         public ICommand SignUpClickCommand => new Command(async () =>
         {
-            //sign up logic
             int answer = _authenticationService.Authenticate(SignUp.Login, SignUp.Password);
             if (answer != 0)
             {
@@ -44,13 +41,12 @@ namespace ProfileBook.ViewModels
             }
             else
             {
-                _repositoryService.SaveUser(SignUp);
+                _authorizationService.Registrate(SignUp);
+                NavigationParameters navParams = new NavigationParameters();
+                navParams.Add("credentials", SignUp);
                 await App.Current.MainPage.DisplayAlert("", "Registration is successful!", "OK");
-                await _navigationService.GoBackAsync();
+                await _navigationService.GoBackAsync(navParams);
             }
-
-            //navigation back
-            
         });
     }
 }

@@ -4,7 +4,7 @@ using Xamarin.Forms;
 
 namespace ProfileBook.ViewModels
 {
-    public class SignInPageViewModel : ViewModelBase
+    public class SignInPageViewModel : ViewModelBase, INavigationAware
     {
         private User signIn;
         public User SignIn
@@ -16,22 +16,31 @@ namespace ProfileBook.ViewModels
                 this.RaisePropertyChanged("SignIn");
             }
         }
+        private bool isOn;
+        public bool IsOn
+        {
+            get { return this.isOn; }
+            set
+            {
+                this.isOn = value;
+                this.RaisePropertyChanged("IsOn");
+            }
+        }
 
         private INavigationService _navigationService;
         private IAuthenticationService _authenticationService;
-        private ISettingsManager _settingsManager;
+        private IAuthorizationService _authorizationService;
 
         public SignInPageViewModel(INavigationService navigationService,
             IAuthenticationService authenticationService,
-            ISettingsManager settingsManager)
+            IAuthorizationService authorizationService)
             : base(navigationService)
         {
             Title = "Signing In";
             this.SignIn = new User();
             _navigationService = navigationService;
             _authenticationService = authenticationService;
-            _settingsManager = settingsManager;
-            
+            _authorizationService = authorizationService;
         }
 
         public ICommand SignInClickCommand => new Command(async () =>
@@ -39,23 +48,28 @@ namespace ProfileBook.ViewModels
             int id = _authenticationService.Authenticate(SignIn.Login, SignIn.Password);
             if(id != 0)
             {
-                //var navParams = new NavigationParameters();
-                //navParams.Add("_id", id);
-                _settingsManager.CurrentUser = id;
+                _authorizationService.Authorize(id);
                 await _navigationService.NavigateAsync("/NavigationPage/MainListPage"); //no params
             }
             else
             {
                 await App.Current.MainPage.DisplayAlert("Whoops..", "Something went wrong.", "OK");
-                //Authorization.Password = null;
+                SignIn = new User() { Login = this.SignIn.Login, Password = string.Empty };
             }
-
-
         });
         public ICommand SignUpClickCommand => new Command(async () =>
         {
             await _navigationService.NavigateAsync("SignUpPage");
         });
-
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            var navMode = parameters.GetNavigationMode();
+            if (navMode == 0)
+            {
+                var _parameters = parameters.GetValue<User>("credentials");
+                SignIn = new User() { Login = _parameters.Login, Password = _parameters.Password };
+                IsOn = true;
+            }
+        }
     }
 }

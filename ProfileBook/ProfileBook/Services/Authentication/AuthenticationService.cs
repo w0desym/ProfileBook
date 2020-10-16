@@ -13,8 +13,7 @@ namespace ProfileBook
         {
             database = new SQLiteConnection(Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ProfileBookSQLite.db"));
-            //database.Query<UserProfile>("INSERT INTO UserProfile (Login,Password)values ('user','qwe')");
-            
+            database.CreateTable<User>();
         }
 
         public int Authenticate(string login, string password)

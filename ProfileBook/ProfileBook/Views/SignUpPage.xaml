@@ -21,14 +21,15 @@
             </Grid.RowDefinitions>
             <dataForm:SfDataForm 
                 x:Name="signUpForm" 
+                ContainerType="None"
                 LayoutOptions="TextInputLayout" 
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
+                CommitMode="PropertyChanged"
                 DataObject="{Binding SignUp}"
                 Grid.Row="1"/>
         </Grid>
         <buttons:SfButton
-            IsEnabled="False"
             Text="Sign Up"
             FontSize="18"
             x:Name="signUpButton"
@@ -38,7 +39,6 @@
             VerticalOptions="Center"
             CornerRadius="8"
             BackgroundColor="DeepSkyBlue"
-            
             Command="{Binding SignUpClickCommand}"/>
     </StackLayout>
 </ContentPage>

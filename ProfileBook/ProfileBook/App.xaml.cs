@@ -9,26 +9,26 @@ using System.IO;
 using System;
 using Plugin.Settings.Abstractions;
 using Plugin.Settings;
+using Plugin.Media;
+using Plugin.Media.Abstractions;
+using Acr.UserDialogs;
 
 namespace ProfileBook
 {
     public partial class App
     {
-        public static string DefaultImageId = "default_image";
-        public static string ImageIdToSave = null;
-
         public App(IPlatformInitializer initializer)
             : base(initializer)
         {
         }
 
-        protected override async void OnInitialized()
+        protected override void OnInitialized()
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzI4NDEwQDMxMzgyZTMzMmUzMG8xdjZ0eFdZbE9BSEhiY012eHZpblhWeWlCMjlOdGVWcXBlV0Qvc2FUTzQ9");
 
             InitializeComponent();
 
-            await NavigationService.NavigateAsync("NavigationPage/SignInPage");
+            NavigationService.NavigateAsync("NavigationPage/SignInPage");
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
@@ -43,15 +43,14 @@ namespace ProfileBook
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
 
             containerRegistry.RegisterInstance<ISettings>(CrossSettings.Current);
+            containerRegistry.RegisterInstance<IMedia>(CrossMedia.Current);
+            containerRegistry.RegisterInstance<IUserDialogs>(UserDialogs.Instance);
 
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             containerRegistry.RegisterInstance<IAuthenticationService>(Container.Resolve<AuthenticationService>());
             containerRegistry.RegisterInstance<IRepositoryService>(Container.Resolve<RepositoryService>());
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
             containerRegistry.RegisterInstance<IProfileService>(Container.Resolve<ProfileService>());
-
-
-
         }
     }
 }

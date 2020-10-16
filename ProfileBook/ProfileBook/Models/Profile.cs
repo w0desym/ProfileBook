@@ -1,4 +1,5 @@
 ﻿using SQLite;
+using Syncfusion.XForms.DataForm;
 using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -20,6 +21,7 @@ namespace ProfileBook
         private string img;
         private string nickname;
         private string name;
+        private string description;
         private DateTime dateTime;
 
         [PrimaryKey, AutoIncrement, Display(AutoGenerateField = false)]
@@ -68,6 +70,16 @@ namespace ProfileBook
             {
                 name = value;
                 OnPropertyChanged("Name");
+            }
+        }
+        [DataType(DataType.MultilineText)]
+        public string Description
+        {
+            get { return description; }
+            set
+            {
+                description = value;
+                OnPropertyChanged("Description");
             }
         }
         [Display(AutoGenerateField = false)]

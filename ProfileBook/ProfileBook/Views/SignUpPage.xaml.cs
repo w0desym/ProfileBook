@@ -7,6 +7,8 @@ namespace ProfileBook.Views
         public SignUpPage()
         {
             InitializeComponent();
+
+            signUpButton.IsEnabled = false;
         }
     }
 }

@@ -2,6 +2,9 @@
 using Syncfusion.XForms.DataForm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using Xamarin.Forms;
 
@@ -10,27 +13,29 @@ namespace ProfileBook
     public class SignUpBehavior : Behavior<ContentPage>
     {
         SfDataForm signUpForm;
-        //SfButton button;
+        SfButton button;
 
         protected override void OnAttachedTo(ContentPage bindable)
         {
             base.OnAttachedTo(bindable);
             signUpForm = bindable.FindByName<SfDataForm>("signUpForm");
-            //button = bindable.FindByName<SfButton>("signUpButton");
+            button = bindable.FindByName<SfButton>("signUpButton");
 
-            signUpForm.AutoGeneratingDataFormItem += SignUpForm_AutoGeneratingDataFormItem;
+            signUpForm.AutoGenerateItems = false;
+
+            var items = new ObservableCollection<DataFormItemBase>();
+            items.Add(new DataFormTextItem() { Name = "Login", Editor = "Text" });
+            items.Add(new DataFormTextItem() { Name = "Password", Editor = "Password", EnablePasswordVisibilityToggle = true });
+            items.Add(new DataFormTextItem() { Name = "Confirm", Editor = "Password", EnablePasswordVisibilityToggle = true });
+
+            signUpForm.Items = items;
+
             signUpForm.Validated += SignUpForm_Validated;
         }
-
-        private void SignUpForm_AutoGeneratingDataFormItem(object sender, AutoGeneratingDataFormItemEventArgs e)
-        {
-            if (e.DataFormItem.Name == "Id")
-                e.DataFormItem.IsVisible = false;
-        }
-
         private void SignUpForm_Validated(object sender, ValidatedEventArgs e)
         {
-            //button.IsEnabled = (sender as SfDataForm).ItemManager.DataFormItems.TrueForAll(x => (x as DataFormItem).IsValid);
+            button.IsEnabled = (sender as SfDataForm).ItemManager.DataFormItems.TrueForAll(x => (x as DataFormItem).IsValid);
         }
+
     }
 }

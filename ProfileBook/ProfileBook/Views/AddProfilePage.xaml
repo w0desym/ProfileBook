@@ -8,30 +8,37 @@
              x:Class="ProfileBook.Views.AddProfilePage"
              Title="{Binding Title}">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Order="Primary"
+            Priority="1"
+            Command="{Binding Add}"
+            IconImageSource="ic_save.png"/>
+    </ContentPage.ToolbarItems>
     <StackLayout>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
                 <RowDefinition Height="150"/>
                 <RowDefinition Height="250"/>
             </Grid.RowDefinitions>
+            <Image
+                Margin="0,0,0,10"
+                Grid.Row="1"
+                Source="{Binding ImagePath}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ImageTap}"/>
+                </Image.GestureRecognizers>
+            </Image>
             <dataForm:SfDataForm 
-                x:Name="dataForm" 
-                LayoutOptions="Default"
+                x:Name="dataForm"
+                ContainerType="Filled"
+                LayoutOptions="TextInputLayout"
                 HorizontalOptions="FillAndExpand"
                 VerticalOptions="FillAndExpand"
                 DataObject="{Binding Profile, Mode=TwoWay}"
-                Grid.Row="1"/>
+                Grid.Row="2"/>
         </Grid>
-        <buttons:SfButton 
-            x:Name="addButton"
-            Text="Add"
-            FontSize="18"
-            HorizontalOptions="Center"
-            WidthRequest="100" 
-            HeightRequest="50"
-            CornerRadius="8"
-            BackgroundColor="DeepSkyBlue"
-            Command="{Binding Add}"/>
     </StackLayout>
   
 </ContentPage>
