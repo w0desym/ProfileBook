@@ -11,28 +11,22 @@ using System.Text.RegularExpressions;
 
 namespace ProfileBook
 {
-    public class User : INotifyPropertyChanged, IDataErrorInfo
+    public class User : BaseModel, INotifyPropertyChanged, IDataErrorInfo
     {
-        private int id;
+        #region Fields
         private string login;
         private string password;
         private string confirm;
+        #endregion
 
+        #region Constructor
         public User()
         {
 
         }
+        #endregion
 
-        [PrimaryKey, AutoIncrement, Display(AutoGenerateField = false)]
-        public int Id
-        {
-            get { return this.id; }
-            set
-            {
-                this.id = value;
-            }
-        }
-
+        #region Properties with DataAnnotations
         [Required(AllowEmptyStrings = false, ErrorMessage = "This field should not be empty")]
         [StringLength(30, ErrorMessage = "Login should not exceed 30 characters")]
         public string Login
@@ -58,7 +52,6 @@ namespace ProfileBook
         }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "This field should not be empty")]
-        [Display(AutoGenerateField = false)]
         public string Confirm
         {
             get { return this.confirm; }
@@ -76,13 +69,7 @@ namespace ProfileBook
                 return string.Empty;
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void RaisePropertyChanged(String Name)
-        {
-            if (PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(Name));
-        }
+        #endregion
 
         #region Additional Validation
         public string this[string name]

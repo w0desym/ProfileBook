@@ -26,6 +26,8 @@ namespace ProfileBook
         {
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzI4NDEwQDMxMzgyZTMzMmUzMG8xdjZ0eFdZbE9BSEhiY012eHZpblhWeWlCMjlOdGVWcXBlV0Qvc2FUTzQ9");
 
+            Device.SetFlags(new string[] { "AppTheme_Experimental" });
+
             InitializeComponent();
 
             NavigationService.NavigateAsync("NavigationPage/SignInPage");
@@ -47,7 +49,8 @@ namespace ProfileBook
             containerRegistry.RegisterInstance<IUserDialogs>(UserDialogs.Instance);
 
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
-            containerRegistry.RegisterInstance<IRepositoryService>(Container.Resolve<RepositoryService>());
+            containerRegistry.RegisterInstance<IRepositoryService<User>>(Container.Resolve<RepositoryService<User>>());
+            containerRegistry.RegisterInstance<IRepositoryService<Profile>>(Container.Resolve<RepositoryService<Profile>>());
             containerRegistry.RegisterInstance<IAuthenticationService>(Container.Resolve<AuthenticationService>());
             containerRegistry.RegisterInstance<IAuthorizationService>(Container.Resolve<AuthorizationService>());
             containerRegistry.RegisterInstance<IProfileService>(Container.Resolve<ProfileService>());

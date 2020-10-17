@@ -16,29 +16,20 @@
             IconImageSource="ic_save.png"/>
     </ContentPage.ToolbarItems>
     <StackLayout>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="150"/>
-                <RowDefinition Height="250"/>
-            </Grid.RowDefinitions>
-            <Image
-                Margin="0,0,0,10"
-                Grid.Row="1"
-                Source="{Binding ImagePath}">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding ImageTap}"/>
-                </Image.GestureRecognizers>
-            </Image>
-            <dataForm:SfDataForm 
-                x:Name="dataForm"
-                ContainerType="Filled"
-                LayoutOptions="TextInputLayout"
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand"
-                DataObject="{Binding Profile, Mode=TwoWay}"
-                Grid.Row="2"/>
-        </Grid>
+        <Image
+            HeightRequest="170" 
+            Margin="0,10"
+            Source="{Binding ImagePath}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ImageTap}"/>
+            </Image.GestureRecognizers>
+        </Image>
+        <dataForm:SfDataForm
+            x:Name="dataForm"
+            ContainerType="Filled"
+            LayoutOptions="TextInputLayout"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            DataObject="{Binding Profile, Mode=TwoWay}"/>
     </StackLayout>
-  
 </ContentPage>

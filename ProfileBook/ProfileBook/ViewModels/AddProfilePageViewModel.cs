@@ -14,9 +14,20 @@ using Xamarin.Forms;
 
 namespace ProfileBook.ViewModels
 {
-    public class AddProfilePageViewModel : ViewModelBase, INavigationAware
+    public class AddProfilePageViewModel : ViewModelBase
     {
+        #region Fields
+        private INavigationService _navigationService;
+        private ISettingsManager _settingsManager;
+        private IProfileService _profileService;
+        private IUserDialogs _userDialogs;
+        private IMedia _media;
+
         private string imagePath;
+        private Profile profile;
+        #endregion
+
+        #region Properties
         public string ImagePath
         {
             get { return imagePath; }
@@ -26,8 +37,6 @@ namespace ProfileBook.ViewModels
                 this.RaisePropertyChanged("ImagePath");
             }
         }
-
-        private Profile profile;
         public Profile Profile
         {
             get { return this.profile; }
@@ -37,12 +46,9 @@ namespace ProfileBook.ViewModels
                 this.RaisePropertyChanged("Profile");
             }
         }
+        #endregion
 
-        private INavigationService _navigationService;
-        private ISettingsManager _settingsManager;
-        private IProfileService _profileService;
-        private IUserDialogs _userDialogs;
-        private IMedia _media;
+        #region Constructor
         public AddProfilePageViewModel(INavigationService navigationService,
             ISettingsManager settingsManager,
             IProfileService profileService,
@@ -59,6 +65,21 @@ namespace ProfileBook.ViewModels
             _userDialogs = userDialogs;
             _media = media;
         }
+        #endregion
+
+        #region INavigationAware
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            var _profile = parameters.GetValue<Profile>("profile");
+            if (_profile != null)
+            {
+                this.Profile = _profile;
+                this.ImagePath = _profile.ImgPath;
+            }
+        }
+        #endregion
+
+        #region Commands
         public ICommand Add => new Command(async() =>
         {
             Profile.Match_id = _settingsManager.CurrentUser;
@@ -76,7 +97,9 @@ namespace ProfileBook.ViewModels
                 .Add("From Gallery", () => Gallery(), "ic_collections.png")
                 .Add("Take a Picture", () => Camera(), "ic_camera_alt.png"));
         });
+        #endregion
 
+        #region Methods
         public async void Gallery()
         {
             var image = await _media.PickPhotoAsync();
@@ -85,7 +108,6 @@ namespace ProfileBook.ViewModels
                 ImagePath = image.Path;
             }
         }
-
         public async void Camera()
         {
             var image = await _media.TakePhotoAsync(new StoreCameraMediaOptions
@@ -97,15 +119,6 @@ namespace ProfileBook.ViewModels
                 ImagePath = image.Path;
             }
         }
-
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
-            var _profile = parameters.GetValue<Profile>("profile");
-            if (_profile != null)
-            {
-                this.Profile = _profile;
-                this.ImagePath = _profile.ImgPath;
-            }
-        }
+        #endregion
     }
 }

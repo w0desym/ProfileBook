@@ -1,13 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ProfileBook
 {
-    public interface IRepositoryService
+    public interface IRepositoryService<T> where T : BaseModel, new()
     {
-        IEnumerable<Profile> GetItems();
-        Profile GetItem(int id);
+        List<T> GetItems();
+        T GetItem(int id);
         int DeleteItem(int id);
         int DeleteAllItems();
-        int SaveItem(Profile item);
+        int SaveItem(T item);
+        int FindUser(string login, string password);
+        IEnumerable<Profile> SortTable(int sortKey);
     }
 }

@@ -1,4 +1,5 @@
-﻿using Prism.AppModel;
+﻿using Acr.UserDialogs;
+using Prism.AppModel;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -14,9 +15,19 @@ using Xamarin.Forms;
 
 namespace ProfileBook.ViewModels
 {
-    public class MainListPageViewModel : ViewModelBase, INavigationAware
+    public class MainListPageViewModel : ViewModelBase
     {
+        #region Fields
+        private INavigationService _navigationService;
+        private ISettingsManager _settingsManager;
+        private IProfileService _profileService;
+        private IUserDialogs _userDialogs;
+
         private ObservableCollection<Profile> profileCollection;
+        private bool isShown;
+        #endregion
+
+        #region Properties
         public ObservableCollection<Profile> ProfileCollection
         {
             get { return this.profileCollection; }
@@ -26,27 +37,41 @@ namespace ProfileBook.ViewModels
                 this.RaisePropertyChanged("ProfileCollection");
             }
         }
+        public bool IsShown
+        {
+            get { return this.isShown; }
+            set
+            {
+                this.isShown = value;
+                this.RaisePropertyChanged("IsShown");
+            }
+        }
+        #endregion
 
-        private INavigationService _navigationService;
-        private ISettingsManager _settingsManager;
-        private IProfileService _profileService;
+        #region Constructor
         public MainListPageViewModel(INavigationService navigationService,
             ISettingsManager settingsManager,
-            IProfileService profileService)
+            IProfileService profileService,
+            IUserDialogs userDialogs)
             : base(navigationService)
         {
             Title = "Profiles";
             _navigationService = navigationService;
             _settingsManager = settingsManager;
             _profileService = profileService;
+            _userDialogs = userDialogs;
             UpdateList();
         }
+        #endregion 
 
+        #region INavigationAware
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             UpdateList();
         }
+        #endregion
 
+        #region Commands
         public ICommand Add => new Command(async () =>
         {
             await _navigationService.NavigateAsync("AddProfilePage");
@@ -55,39 +80,35 @@ namespace ProfileBook.ViewModels
         {
             await _navigationService.NavigateAsync("/NavigationPage/SignInPage");
         });
+        public ICommand Settings => new Command(async () =>
+        {
+            await _navigationService.NavigateAsync("SettingsPage");
+        });
         public ICommand Edit => new Command(async (object item) =>
         {
-            NavigationParameters navParams = new NavigationParameters();
-            navParams.Add("profile", item);
+            NavigationParameters navParams = new NavigationParameters { { "profile", item } };
             await _navigationService.NavigateAsync("AddProfilePage", navParams);
         });
-        public ICommand Delete => new Command((object item) =>
+        public ICommand Delete => new Command(async (object item) =>
         {
             Profile profile = item as Profile;
-            _profileService.DeleteProfile(profile.Id);
-            UpdateList();
+            var answer = await _userDialogs.ConfirmAsync(new ConfirmConfig()
+                .SetMessage($"Delete {profile.Nickname}?")
+                .UseYesNo());
+            if (answer)
+            {
+                _profileService.DeleteProfile(profile.Id);
+                UpdateList();
+            }
         });
+        #endregion
+
+        #region Methods
         public void UpdateList()
         {
-            ProfileCollection = new ObservableCollection<Profile>(_profileService.GetProfiles().Where(x => x.Match_id == _settingsManager.CurrentUser));
+            ProfileCollection = new ObservableCollection<Profile>(_profileService.SortProfiles());
+            IsShown = ProfileCollection.Count == 0;
         }
+        #endregion
     }
 }
-//_repositoryService.DeleteAllItems();
-
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1001,'Antony')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1002,'Blake')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1003,'Catherine')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1004,'Jude')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1005,'Mark')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1006,'Anderson')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1007,'Wilson')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1008,'Jade')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1009,'Zachery')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1010,'Ishant')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1011,'Trunks')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1012,'Itachi')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1013,'Mathew')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1014,'Watson')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1015,'Chris Patt')");
-//syncDatabase.Query<Profile>("INSERT INTO Profile (Id,Name)values (1016,'Phanthom')");

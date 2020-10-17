@@ -14,7 +14,6 @@ namespace ProfileBook
     {
         SfDataForm signUpForm;
         SfButton button;
-
         protected override void OnAttachedTo(ContentPage bindable)
         {
             base.OnAttachedTo(bindable);
@@ -24,9 +23,18 @@ namespace ProfileBook
             signUpForm.AutoGenerateItems = false;
 
             var items = new ObservableCollection<DataFormItemBase>();
-            items.Add(new DataFormTextItem() { Name = "Login", Editor = "Text" });
-            items.Add(new DataFormTextItem() { Name = "Password", Editor = "Password", EnablePasswordVisibilityToggle = true });
-            items.Add(new DataFormTextItem() { Name = "Confirm", Editor = "Password", EnablePasswordVisibilityToggle = true });
+            items.Add(new DataFormTextItem() { 
+                Name = "Login", 
+                Editor = "Text" });
+            items.Add(new DataFormTextItem() { 
+                Name = "Password", 
+                Editor = "Password", 
+                EnablePasswordVisibilityToggle = true });
+            items.Add(new DataFormTextItem() { 
+                Name = "Confirm", 
+                Editor = "Password", 
+                EnablePasswordVisibilityToggle = true, 
+                LabelText = "Confirm password"});
 
             signUpForm.Items = items;
 
@@ -36,6 +44,7 @@ namespace ProfileBook
         {
             button.IsEnabled = (sender as SfDataForm).ItemManager.DataFormItems.TrueForAll(x => (x as DataFormItem).IsValid);
         }
+
 
     }
 }

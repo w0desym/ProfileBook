@@ -1,4 +1,7 @@
 ﻿using Prism.Navigation;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -6,7 +9,15 @@ namespace ProfileBook.ViewModels
 {
     public class SignUpPageViewModel : ViewModelBase
     {
+        #region Fields
+        private INavigationService _navigationService;
+        private IAuthenticationService _authenticationService;
+        private IAuthorizationService _authorizationService;
+
         private User signUp;
+        #endregion
+
+        #region Properties
         public User SignUp
         {
             get { return this.signUp; }
@@ -16,10 +27,9 @@ namespace ProfileBook.ViewModels
                 this.RaisePropertyChanged("SignUp");
             }
         }
+        #endregion
 
-        private INavigationService _navigationService;
-        private IAuthenticationService _authenticationService;
-        private IAuthorizationService _authorizationService;
+        #region Constructor
         public SignUpPageViewModel(INavigationService navigationService,
             IAuthenticationService authenticationService,
             IAuthorizationService authorizationService)
@@ -31,7 +41,9 @@ namespace ProfileBook.ViewModels
             _authenticationService = authenticationService;
             _authorizationService = authorizationService;
         }
+        #endregion
 
+        #region Commands
         public ICommand SignUpClickCommand => new Command(async () =>
         {
             int answer = _authenticationService.Authenticate(SignUp.Login, SignUp.Password);
@@ -50,5 +62,6 @@ namespace ProfileBook.ViewModels
                 await _navigationService.GoBackAsync(navParams);
             }
         });
+        #endregion
     }
 }

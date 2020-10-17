@@ -14,8 +14,6 @@ namespace ProfileBook
     {
         SfDataForm signInForm;
         SfButton button;
-
-
         protected override void OnAttachedTo(ContentPage bindable)
         {
             base.OnAttachedTo(bindable);

@@ -7,5 +7,6 @@ namespace ProfileBook
         int SaveProfile(Profile profile);
         int DeleteProfile(int id);
         IEnumerable<Profile> GetProfiles();
+        IEnumerable<Profile> SortProfiles();
     }
 }

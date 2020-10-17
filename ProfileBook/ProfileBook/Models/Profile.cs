@@ -7,13 +7,9 @@ using System.Runtime.CompilerServices;
 
 namespace ProfileBook
 {
-    public class Profile : INotifyPropertyChanged
+    public class Profile : BaseModel, INotifyPropertyChanged
     {
-        public Profile()
-        {
-
-        }
-        private int id;
+        #region Fields
         private int match_id;
 
         private string imgPath;
@@ -21,17 +17,16 @@ namespace ProfileBook
         private string name;
         private string description;
         private DateTime dateTime;
+        #endregion
 
-        [PrimaryKey, AutoIncrement, Display(AutoGenerateField = false)]
-        public int Id
+        #region Constructor
+        public Profile()
         {
-            get { return id; }
-            set
-            {
-                id = value;
-                OnPropertyChanged("Id");
-            }
+
         }
+        #endregion
+
+        #region Properties with DataAnnotations
         [Display(AutoGenerateField = false)]
         public int Match_id
         {
@@ -39,7 +34,7 @@ namespace ProfileBook
             set
             {
                 match_id = value;
-                OnPropertyChanged("Match_id");
+                RaisePropertyChanged("Match_id");
             }
         }
         [Display(AutoGenerateField = false)]
@@ -49,7 +44,7 @@ namespace ProfileBook
             set
             {
                 imgPath = value;
-                OnPropertyChanged("ImgPath");
+                RaisePropertyChanged("ImgPath");
             }
         }
         public string Nickname
@@ -58,7 +53,7 @@ namespace ProfileBook
             set
             {
                 nickname = value;
-                OnPropertyChanged("Nickname");
+                RaisePropertyChanged("Nickname");
             }
         }
         public string Name
@@ -67,7 +62,7 @@ namespace ProfileBook
             set
             {
                 name = value;
-                OnPropertyChanged("Name");
+                RaisePropertyChanged("Name");
             }
         }
         [StringLength(120)]
@@ -78,7 +73,7 @@ namespace ProfileBook
             set
             {
                 description = value;
-                OnPropertyChanged("Description");
+                RaisePropertyChanged("Description");
             }
         }
         [Display(AutoGenerateField = false)]
@@ -88,14 +83,9 @@ namespace ProfileBook
             set
             {
                 dateTime = value;
+                RaisePropertyChanged("DateTime");
             }
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-        }
+        #endregion
     }
 }

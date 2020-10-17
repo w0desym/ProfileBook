@@ -8,21 +8,14 @@ namespace ProfileBook
 {
     class AuthenticationService : IAuthenticationService
     {
-        SQLiteConnection database;
-        public AuthenticationService()
+        private IRepositoryService<User> _repositoryService;
+        public AuthenticationService(IRepositoryService<User> repositoryService)
         {
-            database = new SQLiteConnection(Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ProfileBookSQLite.db"));
-            database.CreateTable<User>();
+            _repositoryService = repositoryService;
         }
-
         public int Authenticate(string login, string password)
         {
-            User user = database.FindWithQuery<User>("SELECT * FROM User WHERE Login = ? AND Password = ?", login, password);
-            if (user != null)
-                return user.Id;
-            else
-                return 0;
+            return _repositoryService.FindUser(login, password);
         }
     }
 }
