@@ -7,8 +7,6 @@ using System.Runtime.CompilerServices;
 
 namespace ProfileBook
 {
-
-
     public class Profile : INotifyPropertyChanged
     {
         public Profile()
@@ -18,7 +16,7 @@ namespace ProfileBook
         private int id;
         private int match_id;
 
-        private string img;
+        private string imgPath;
         private string nickname;
         private string name;
         private string description;
@@ -45,13 +43,13 @@ namespace ProfileBook
             }
         }
         [Display(AutoGenerateField = false)]
-        public string Img
+        public string ImgPath
         {
-            get { return img; }
+            get { return imgPath; }
             set
             {
-                img = value;
-                OnPropertyChanged("Img");
+                imgPath = value;
+                OnPropertyChanged("ImgPath");
             }
         }
         public string Nickname
@@ -72,6 +70,7 @@ namespace ProfileBook
                 OnPropertyChanged("Name");
             }
         }
+        [StringLength(120)]
         [DataType(DataType.MultilineText)]
         public string Description
         {

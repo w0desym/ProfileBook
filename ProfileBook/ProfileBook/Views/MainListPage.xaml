@@ -25,16 +25,14 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <ListView
             x:Name="profilesList"
             ItemsSource="{Binding ProfileCollection}"
             Grid.Row="0"
-            RowHeight="70"
-            VerticalOptions="FillAndExpand"
-            HorizontalOptions="FillAndExpand">
+            RowHeight="100">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -49,7 +47,20 @@
                                 CommandParameter="{Binding .}"/>
                         </ViewCell.ContextActions>
                         <ViewCell.View>
-                            <Grid>
+                            <StackLayout 
+                                Orientation="Horizontal" 
+                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand">
+                                <Image Source="{Binding ImgPath}" Aspect="AspectFit"/>
+                                <StackLayout VerticalOptions="Center">
+                                    <Label 
+                                        Text="{Binding Nickname}"
+                                        FontAttributes="Bold"/>
+                                    <Label Text="{Binding Name}"/>
+                                    <Label Text="{Binding DateTime}"/>
+                                </StackLayout>
+                            </StackLayout>
+                            <!--<Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="0.4*"/>
                                     <RowDefinition Height="0.6*"/>
@@ -65,7 +76,7 @@
                                     TextColor="Teal"
                                     FontSize="15"
                                     Grid.Row="1"/>
-                            </Grid>
+                            </Grid>-->
                         </ViewCell.View>
                     </ViewCell>
                 </DataTemplate>

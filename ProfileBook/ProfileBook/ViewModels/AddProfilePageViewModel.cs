@@ -1,4 +1,5 @@
 ﻿using Acr.UserDialogs;
+using Plugin.Media.Abstractions;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -6,6 +7,7 @@ using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
@@ -38,12 +40,14 @@ namespace ProfileBook.ViewModels
 
         private INavigationService _navigationService;
         private ISettingsManager _settingsManager;
-        private IRepositoryService _repositoryService;
+        private IProfileService _profileService;
         private IUserDialogs _userDialogs;
+        private IMedia _media;
         public AddProfilePageViewModel(INavigationService navigationService,
             ISettingsManager settingsManager,
-            IRepositoryService repositoryService,
-            IUserDialogs userDialogs)
+            IProfileService profileService,
+            IUserDialogs userDialogs,
+            IMedia media)
             : base(navigationService)
         {
             Title = "Adding New Profile";
@@ -51,14 +55,16 @@ namespace ProfileBook.ViewModels
             ImagePath = "pic_profile.png";
             _navigationService = navigationService;
             _settingsManager = settingsManager;
-            _repositoryService = repositoryService;
+            _profileService = profileService;
             _userDialogs = userDialogs;
+            _media = media;
         }
         public ICommand Add => new Command(async() =>
         {
             Profile.Match_id = _settingsManager.CurrentUser;
             Profile.DateTime = DateTime.Now;
-            _repositoryService.SaveItem(Profile);
+            Profile.ImgPath = ImagePath;
+            _profileService.SaveProfile(Profile);
             await _navigationService.GoBackAsync();
         });
         public ICommand ImageTap => new Command(() =>
@@ -67,19 +73,30 @@ namespace ProfileBook.ViewModels
                 .SetUseBottomSheet(true)
                 .SetTitle("")
                 .SetCancel("Cancel", null, "ic_cancel.png")
-                .Add("From Gallery", null, "ic_collections.png")
-                .Add("Take a Picture", null, "ic_camera_alt.png"));
+                .Add("From Gallery", () => Gallery(), "ic_collections.png")
+                .Add("Take a Picture", () => Camera(), "ic_camera_alt.png"));
         });
 
-        public ICommand Gallery => new Command(() =>
+        public async void Gallery()
         {
+            var image = await _media.PickPhotoAsync();
+            if (image != null)
+            {
+                ImagePath = image.Path;
+            }
+        }
 
-        });
-        public ICommand Camera => new Command(() =>
+        public async void Camera()
         {
-
-        });
-
+            var image = await _media.TakePhotoAsync(new StoreCameraMediaOptions
+            {
+                Name = "CamPic.jpg"
+            });
+            if (image != null)
+            {
+                ImagePath = image.Path;
+            }
+        }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
@@ -87,6 +104,7 @@ namespace ProfileBook.ViewModels
             if (_profile != null)
             {
                 this.Profile = _profile;
+                this.ImagePath = _profile.ImgPath;
             }
         }
     }

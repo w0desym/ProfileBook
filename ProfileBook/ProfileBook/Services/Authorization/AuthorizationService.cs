@@ -11,20 +11,23 @@ namespace ProfileBook
         SQLiteConnection database;
 
         private ISettingsManager _settingsManager;
-        public AuthorizationService(ISettingsManager settingsManager)
+        private IRepositoryService _repositoryService;
+        public AuthorizationService(ISettingsManager settingsManager,
+            IRepositoryService repositoryService)
         {
             _settingsManager = settingsManager;
+            _repositoryService = repositoryService;
 
             database = new SQLiteConnection(Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ProfileBookSQLite.db"));
             database.CreateTable<User>();
         }
 
-        public void Authorize(int id)
+        public int Authorize(int id)
         {
-            _settingsManager.CurrentUser = id;
+            return _settingsManager.CurrentUser = id;
         }
-        public int Registrate(User item)
+        public int Register(User item)
         {
             if (item.Id != 0)
             {

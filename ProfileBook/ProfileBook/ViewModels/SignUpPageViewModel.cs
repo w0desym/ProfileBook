@@ -41,9 +41,11 @@ namespace ProfileBook.ViewModels
             }
             else
             {
-                _authorizationService.Registrate(SignUp);
+                _authorizationService.Register(SignUp);
+
                 NavigationParameters navParams = new NavigationParameters();
                 navParams.Add("credentials", SignUp);
+
                 await App.Current.MainPage.DisplayAlert("", "Registration is successful!", "OK");
                 await _navigationService.GoBackAsync(navParams);
             }

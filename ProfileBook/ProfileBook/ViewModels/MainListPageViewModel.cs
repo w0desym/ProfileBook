@@ -29,16 +29,16 @@ namespace ProfileBook.ViewModels
 
         private INavigationService _navigationService;
         private ISettingsManager _settingsManager;
-        private IRepositoryService _repositoryService;
+        private IProfileService _profileService;
         public MainListPageViewModel(INavigationService navigationService,
             ISettingsManager settingsManager,
-            IRepositoryService repositoryService)
+            IProfileService profileService)
             : base(navigationService)
         {
             Title = "Profiles";
             _navigationService = navigationService;
             _settingsManager = settingsManager;
-            _repositoryService = repositoryService;
+            _profileService = profileService;
             UpdateList();
         }
 
@@ -64,12 +64,12 @@ namespace ProfileBook.ViewModels
         public ICommand Delete => new Command((object item) =>
         {
             Profile profile = item as Profile;
-            _repositoryService.DeleteItem(profile.Id);
+            _profileService.DeleteProfile(profile.Id);
             UpdateList();
         });
         public void UpdateList()
         {
-            ProfileCollection = new ObservableCollection<Profile>(_repositoryService.GetItems().Where(x => x.Match_id == _settingsManager.CurrentUser));
+            ProfileCollection = new ObservableCollection<Profile>(_profileService.GetProfiles().Where(x => x.Match_id == _settingsManager.CurrentUser));
         }
     }
 }
