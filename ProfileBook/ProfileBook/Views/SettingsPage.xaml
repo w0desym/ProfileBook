@@ -5,51 +5,51 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="ProfileBook.Views.SettingsPage"
+             Style="{StaticResource PageStyle}"
              Title="{Binding Title}">
 
+
     <StackLayout Padding="30">
-        <!--<buttons:SfRadioGroup>
-            <buttons:SfRadioButton
-                Text="Light Theme"
-                IsChecked="{Binding IsLightThemeChecked}"/>
-            <buttons:SfRadioButton
-                Text="Dark Theme"
-                IsChecked="{Binding IsDarkThemeChecked}"/>
-        </buttons:SfRadioGroup>-->
-        <!--<Button BackgroundColor="{AppThemeBinding Light={StaticResource LightNavigationBarColor}, Dark={StaticResource DarkNavigationBarColor}}"/>-->
         <StackLayout>
             <Label 
                 Text="Sorting"
-                FontSize="Title"/>
+                Style="{StaticResource HeaderLabelStyle}"/>
             <buttons:SfRadioGroup>
                 <buttons:SfRadioButton
                     Text="By Nickname"
-                    FontSize="20"
+                    Style="{StaticResource RadioButtonStyle}"
                     IsChecked="{Binding IsNicknameChecked}"/>
                 <buttons:SfRadioButton
                     Text="By Name"
-                    FontSize="20"
+                    Style="{StaticResource RadioButtonStyle}"
                     IsChecked="{Binding IsNameChecked}"/>
                 <buttons:SfRadioButton
                     Text="By Date"
-                    FontSize="20"
+                    Style="{StaticResource RadioButtonStyle}"
                     IsChecked="{Binding IsDateChecked}"/>
             </buttons:SfRadioGroup>
         </StackLayout>
         <StackLayout>
             <Label 
                 Text="Theme"
-                FontSize="Title"/>
-            <!--#region Theme-->
-            <!--#endregion-->
+                Style="{StaticResource HeaderLabelStyle}"/>
+            <buttons:SfRadioGroup>
+                <buttons:SfRadioButton
+                    Text="Light Theme"
+                    Style="{StaticResource RadioButtonStyle}"
+                    IsChecked="{Binding IsLightThemeChecked}"/>
+                <buttons:SfRadioButton
+                    Text="Dark Theme"
+                    Style="{StaticResource RadioButtonStyle}"
+                    IsChecked="{Binding IsDarkThemeChecked}"/>
+            </buttons:SfRadioGroup>
         </StackLayout>
         <StackLayout>
             <Label 
                 Text="Localization"
-                FontSize="Title"/>
+                Style="{StaticResource HeaderLabelStyle}"/>
             <!--#region Localization-->
             <!--#endregion-->
         </StackLayout>
     </StackLayout>
-
 </ContentPage>

@@ -7,6 +7,7 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ProfileBook.Views.SignUpPage"
+             Style="{StaticResource PageStyle}"
              Title="{Binding Title}">
 
     <ContentPage.Behaviors>
@@ -14,31 +15,34 @@
     </ContentPage.Behaviors>
 
     <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <!--it is necessary to use grid on this page because of sfdataform peculiarity-->
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="150"/>
-                <RowDefinition Height="270" />
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <dataForm:SfDataForm 
-                x:Name="signUpForm" 
-                ContainerType="None"
-                LayoutOptions="TextInputLayout" 
-                HorizontalOptions="FillAndExpand"
-                VerticalOptions="FillAndExpand"
-                CommitMode="PropertyChanged"
-                DataObject="{Binding SignUp}"
-                Grid.Row="1"/>
         </Grid>
-        <buttons:SfButton
+        <Image Grid.Row="0" HeightRequest="130"/>
+        <dataForm:SfDataForm
+            x:Name="signUpForm"
+            ContainerType="Filled"
+            ContainerBackgroundColor="#afc9ff"
+            LayoutOptions="TextInputLayout"
+            HorizontalOptions="FillAndExpand"
+            VerticalOptions="FillAndExpand"
+            HeightRequest="140"
+            Grid.Row="1"
+            CommitMode="PropertyChanged"
+            DataObject="{Binding SignUp}"/>
+        <Button
             Text="Sign Up"
-            FontSize="18"
+            Style="{StaticResource SignButtonStyle}"
             x:Name="signUpButton"
-            WidthRequest="100" 
-            HeightRequest="50"
             HorizontalOptions="Center"
-            VerticalOptions="Center"
-            CornerRadius="8"
-            BackgroundColor="DeepSkyBlue"
+            VerticalOptions="Start"
+            Grid.Row="2"
+            Margin="0,0,0,40"
             Command="{Binding SignUpClickCommand}"/>
     </StackLayout>
 </ContentPage>

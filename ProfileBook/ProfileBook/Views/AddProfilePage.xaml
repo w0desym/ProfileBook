@@ -4,8 +4,8 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:dataForm="clr-namespace:Syncfusion.XForms.DataForm;assembly=Syncfusion.SfDataForm.XForms"
-             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="ProfileBook.Views.AddProfilePage"
+             Style="{StaticResource PageStyle}"
              Title="{Binding Title}">
 
     <ContentPage.ToolbarItems>
@@ -30,6 +30,7 @@
             LayoutOptions="TextInputLayout"
             HorizontalOptions="FillAndExpand"
             VerticalOptions="FillAndExpand"
+            ContainerBackgroundColor="#afc9ff"
             DataObject="{Binding Profile, Mode=TwoWay}"/>
     </StackLayout>
 </ContentPage>

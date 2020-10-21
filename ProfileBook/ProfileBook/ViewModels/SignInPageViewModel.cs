@@ -1,4 +1,5 @@
-﻿using Prism.Navigation;
+﻿using Plugin.Settings.Abstractions;
+using Prism.Navigation;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -8,6 +9,7 @@ namespace ProfileBook.ViewModels
     {
         #region Fields
         private INavigationService _navigationService;
+        private ISettings _settings;
         private IAuthenticationService _authenticationService;
         private IAuthorizationService _authorizationService;
 
@@ -38,6 +40,7 @@ namespace ProfileBook.ViewModels
 
         #region Constructor
         public SignInPageViewModel(INavigationService navigationService,
+            ISettings settings,
             IAuthenticationService authenticationService,
             IAuthorizationService authorizationService)
             : base(navigationService)
@@ -45,8 +48,11 @@ namespace ProfileBook.ViewModels
             Title = "Signing In";
             this.SignIn = new User();
             _navigationService = navigationService;
+            _settings = settings;
             _authenticationService = authenticationService;
             _authorizationService = authorizationService;
+
+            Application.Current.UserAppTheme = (OSAppTheme)_settings.GetValueOrDefault("theme", 1);
         }
         #endregion
 

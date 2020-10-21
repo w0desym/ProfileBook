@@ -2,12 +2,12 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
-             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
              xmlns:local="clr-namespace:ProfileBook;assembly=ProfileBook"
              x:Name="this"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="ProfileBook.Views.MainListPage"
+             Style="{StaticResource PageStyle}"
              Title="{Binding Title}">
     
     <ContentPage.ToolbarItems>
@@ -31,6 +31,7 @@
             Text="No profiles added"   
             HorizontalOptions="Center"
             VerticalOptions="Center"
+            Style="{StaticResource MiniLabelStyle}"
             FontAttributes="Italic"
             IsVisible="{Binding IsShown, Mode=TwoWay}"/>
         <ListView
@@ -60,9 +61,14 @@
                                 <StackLayout VerticalOptions="Center">
                                     <Label 
                                         Text="{Binding Nickname}"
+                                        Style="{StaticResource MiniLabelStyle}"
                                         FontAttributes="Bold"/>
-                                    <Label Text="{Binding Name}"/>
-                                    <Label Text="{Binding DateTime}"/>
+                                    <Label 
+                                        Text="{Binding Name}"
+                                        Style="{StaticResource MiniLabelStyle}"/>
+                                    <Label 
+                                        Text="{Binding DateTime}"
+                                        Style="{StaticResource MiniLabelStyle}"/>
                                 </StackLayout>
                             </StackLayout>
                         </ViewCell.View>

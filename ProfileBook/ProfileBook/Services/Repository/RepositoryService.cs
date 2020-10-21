@@ -17,7 +17,7 @@ namespace ProfileBook
         {
             _settingsManager = settingsManager;
             database = new SQLiteConnection(Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ProfileBookSQLite.db"));
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ProfileBookDataBase.db"));
             database.CreateTable<Profile>();
             database.CreateTable<User>();
         }

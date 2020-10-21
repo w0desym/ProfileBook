@@ -61,6 +61,7 @@ namespace ProfileBook
                 this.RaisePropertyChanged("Confirm");
             }
         }
+
         [Display(AutoGenerateField = false)]
         public string Error
         {

@@ -7,50 +7,62 @@
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ProfileBook.Views.SignInPage"
+             Style="{StaticResource PageStyle}"
              Title="{Binding Title}">
 
-    <StackLayout VerticalOptions="Center">
-        <dataForm:SfDataForm 
-            x:Name="signInForm"
-            ContainerType="None"
-            LayoutOptions="TextInputLayout"
-            HorizontalOptions="FillAndExpand"
-            VerticalOptions="FillAndExpand"
-            DataObject="{Binding SignIn, Mode=TwoWay}"
-            HeightRequest="180"
-            CommitMode="LostFocus"/>
-        <buttons:SfButton
-            IsEnabled="{Binding IsOn, Mode=TwoWay}"
-            Text="Sign In"
-            FontSize="18"
-            x:Name="signInButton"
-            HorizontalOptions="Center"
-            WidthRequest="100" 
-            HeightRequest="50"
-            CornerRadius="8"
-            BackgroundColor="DeepSkyBlue"
-            Command="{Binding SignInClickCommand}"/>
-        <Label 
-            HorizontalOptions="Center"
-            VerticalOptions="FillAndExpand"
-            FontSize="16"
-            Margin="0,50,0,0">
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="Not registered yet? "/>
-                    <Span 
-                        Text="Sign up"
-                        TextColor="Blue"
-                        TextDecorations="Underline">
-                        <Span.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding SignUpClickCommand}"/>
-                        </Span.GestureRecognizers>
-                    </Span>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-    </StackLayout>
     <ContentPage.Behaviors>
         <local:SignInBehavior/>
     </ContentPage.Behaviors>
+    <StackLayout VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand">
+        <!--it is necessary to use grid on this page because of sfdataform peculiarity-->
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" HeightRequest="150"/>
+            <dataForm:SfDataForm
+                x:Name="signInForm"
+                ContainerType="Filled"
+                LayoutOptions="TextInputLayout"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="FillAndExpand"
+                Grid.Row="1"
+                HeightRequest="200"
+                CommitMode="PropertyChanged"
+                ContainerBackgroundColor="#afc9ff"
+                DataObject="{Binding SignIn, Mode=TwoWay}"/>
+            <Button
+                Text="Sign In"
+                Style="{StaticResource SignButtonStyle}"
+                x:Name="signInButton"
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Grid.Row="2"
+                Command="{Binding SignInClickCommand}"/>
+            <Label
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                FontSize="16"
+                Grid.Row="3"
+                Style="{StaticResource MiniLabelStyle}">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span
+                            Text="Not registered yet? "/>
+                        <Span 
+                            Text="Sign up"
+                            TextColor="Blue"
+                            TextDecorations="Underline">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SignUpClickCommand}"/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </Grid>
+    </StackLayout>
 </ContentPage>

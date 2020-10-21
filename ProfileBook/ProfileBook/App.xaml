@@ -2,8 +2,59 @@
 <prism:PrismApplication xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:syncTheme="clr-namespace:Syncfusion.XForms.Themes;assembly=Syncfusion.Core.XForms" 
+             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"   
+             xmlns:dataForm="clr-namespace:Syncfusion.XForms.DataForm;assembly=Syncfusion.SfDataForm.XForms"
              x:Class="ProfileBook.App">
     <Application.Resources>
-        
+        <Color x:Key="NavigationBarLightColor">#2e3d55</Color>
+        <Color x:Key="NavigationBarDarkColor">#36393f</Color>
+        <Color x:Key="NavigationBarTextLightColor">White</Color>
+        <Color x:Key="NavigationBarTextDarkColor">White</Color>
+        <Color x:Key="PageLightColor">WhiteSmoke</Color>
+        <Color x:Key="PageDarkColor">#2e3d55</Color>
+        <Color x:Key="SignButtonLightColor">#afc9ff</Color>
+        <Color x:Key="SignButtonDarkColor">#afc9ff</Color>
+        <Color x:Key="LabelLightColor">#36393f</Color>
+        <Color x:Key="LabelDarkColor">WhiteSmoke</Color>
+
+        <Style TargetType="{x:Type NavigationPage}">
+            <Setter Property="BarBackgroundColor"
+                    Value="{AppThemeBinding Light={StaticResource NavigationBarLightColor}, Dark={StaticResource NavigationBarDarkColor}}" />
+            <Setter Property="BarTextColor"
+                    Value="{AppThemeBinding Light={StaticResource NavigationBarTextLightColor}, Dark={StaticResource NavigationBarTextDarkColor}}" />
+        </Style>
+        <Style x:Key="PageStyle" TargetType="ContentPage">
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource PageLightColor}, Dark={StaticResource PageDarkColor}}"/>
+        </Style>
+        <Style x:Key="SignButtonStyle" TargetType="Button">
+            <Setter Property="BackgroundColor" 
+                    Value="{AppThemeBinding Light={StaticResource SignButtonLightColor}, Dark={StaticResource SignButtonDarkColor}}"/>
+            <Setter Property="CornerRadius" 
+                    Value="8"/>
+            <Setter Property="WidthRequest" 
+                    Value="100"/>
+            <Setter Property="HeightRequest" 
+                    Value="50"/>
+            <Setter Property="CornerRadius"
+                    Value="8"/>
+        </Style>
+        <Style x:Key="HeaderLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="Title"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelLightColor}, Dark={StaticResource LabelDarkColor}}"/>
+        </Style>
+        <Style x:Key="SubLabelStyle" TargetType="Label">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelLightColor}, Dark={StaticResource LabelDarkColor}}"/>
+        </Style>
+        <Style x:Key="MiniLabelStyle" TargetType="Label">
+            <Setter Property="TextColor" 
+                    Value="{AppThemeBinding Light={StaticResource LabelLightColor}, Dark={StaticResource LabelDarkColor}}"/>
+        </Style>
+        <Style x:Key="RadioButtonStyle" TargetType="buttons:SfRadioButton">
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LabelLightColor}, Dark={StaticResource LabelDarkColor}}"/>
+        </Style>
     </Application.Resources>
 </prism:PrismApplication>

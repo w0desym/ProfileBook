@@ -71,13 +71,13 @@
       <Version>1.7.335</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Licensing">
-      <Version>18.3.0.40</Version>
+      <Version>18.3.0.42</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.Buttons">
-      <Version>18.3.0.40</Version>
+      <Version>18.3.0.42</Version>
     </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.SfDataForm">
-      <Version>18.3.0.40</Version>
+      <Version>18.3.0.42</Version>
     </PackageReference>
     <PackageReference Include="Xam.Plugin.Media">
       <Version>5.0.1</Version>

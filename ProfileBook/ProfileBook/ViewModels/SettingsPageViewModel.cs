@@ -14,6 +14,7 @@ namespace ProfileBook.ViewModels
     {
         private ISettings _settings;
         private SortOption _sortOption;
+        private OSAppTheme _theme;
 
         private bool isLightThemeChecked;
         private bool isDarkThemeChecked;
@@ -29,7 +30,13 @@ namespace ProfileBook.ViewModels
             set
             {
                 isLightThemeChecked = value;
-                Application.Current.UserAppTheme = OSAppTheme.Light;
+                if (value == true)
+                {
+                    Application.Current.UserAppTheme = OSAppTheme.Light;
+                    _theme = OSAppTheme.Light;
+                    SaveTheme();
+                    RaisePropertyChanged("IsLightThemeChecked");
+                }
             }
         }
         public bool IsDarkThemeChecked
@@ -38,7 +45,13 @@ namespace ProfileBook.ViewModels
             set
             {
                 isDarkThemeChecked = value;
-                Application.Current.UserAppTheme = OSAppTheme.Dark;
+                if (value == true)
+                {
+                    Application.Current.UserAppTheme = OSAppTheme.Dark;
+                    _theme = OSAppTheme.Dark;
+                    SaveTheme();
+                    RaisePropertyChanged("IsDarkThemeChecked");
+                }
             }
         }
 
@@ -49,10 +62,10 @@ namespace ProfileBook.ViewModels
             {
                 isDateChecked = value;
                 if (value == true)
-                {
+                {   
                     _sortOption = SortOption.DateTime;
-                    RaisePropertyChanged("IsDateChecked");
                     SaveSorting();
+                    RaisePropertyChanged("IsDateChecked");
                 }
 
             }
@@ -66,8 +79,8 @@ namespace ProfileBook.ViewModels
                 if (value == true)
                 {
                     _sortOption = SortOption.Nickname;
-                    RaisePropertyChanged("IsNicknameChecked");
                     SaveSorting();
+                    RaisePropertyChanged("IsNicknameChecked");
                 }
 
             }
@@ -81,15 +94,11 @@ namespace ProfileBook.ViewModels
                 if (value == true)
                 {
                     _sortOption = SortOption.Name;
-                    RaisePropertyChanged("IsNameChecked");
                     SaveSorting();
+                    RaisePropertyChanged("IsNameChecked");
                 }
-
             }
         }
-
-
-
 
         public SettingsPageViewModel(INavigationService navigationService,
             ISettings settings)
@@ -103,7 +112,9 @@ namespace ProfileBook.ViewModels
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
             _sortOption = (SortOption)_settings.GetValueOrDefault("sorting", 0);
-            SetRadioButton();
+            SetSortingRadioButton();
+            _theme = (OSAppTheme)_settings.GetValueOrDefault("theme", 1);
+            SetThemeRadioButton();
         }
 
         private void SaveSorting()
@@ -111,7 +122,7 @@ namespace ProfileBook.ViewModels
             _settings.AddOrUpdateValue("sorting", (int)_sortOption);
         }
 
-        void SetRadioButton()
+        void SetSortingRadioButton()
         {
             switch ((int)_sortOption)
             {
@@ -128,6 +139,27 @@ namespace ProfileBook.ViewModels
                 case 2:
                     {
                         IsNameChecked = true;
+                        break;
+                    }
+                default: break;
+            }
+        }
+        private void SaveTheme()
+        {
+            _settings.AddOrUpdateValue("theme", (int)_theme);
+        }
+        void SetThemeRadioButton()
+        {
+            switch ((int)_theme)
+            {
+                case 1:
+                    {
+                        IsLightThemeChecked = true;
+                        break;
+                    }
+                case 2:
+                    {
+                        IsDarkThemeChecked = true;
                         break;
                     }
                 default: break;
