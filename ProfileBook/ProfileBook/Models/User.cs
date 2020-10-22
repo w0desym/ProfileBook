@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
+using Xamarin.Forms;
 
 namespace ProfileBook
 {
@@ -20,20 +21,8 @@ namespace ProfileBook
         private string password;
         private string confirm;
         #endregion
-        public LocalizedResources Resources
-        {
-            get;
-            private set;
-        }
-        #region Constructor
 
-        public User()
-        {
-            Resources = new LocalizedResources(typeof(AppResources), App.Language);
-        }
-        #endregion
-
-        #region Properties with DataAnnotations
+        #region Properties
         public string Login
         {
             get { return this.login; }
@@ -72,7 +61,7 @@ namespace ProfileBook
         }
         #endregion
 
-        #region Additional Validation
+        #region Validation
         public string this[string name]
         {
             get
@@ -80,27 +69,27 @@ namespace ProfileBook
                 if (name.Equals("Password"))
                 {
                     if (string.IsNullOrEmpty(Password))
-                        return Resources["ErrorPasswordEmpty"];
+                        return App.LocalizedResources["ErrorPasswordEmpty"];
                     if (Password.Length < 8 || Password.Length > 16)
-                        return Resources["ErrorPasswordLength"];
-                    if (MatchesRequirements(Password) != true)
-                        return Resources["ErrorPasswordUppercase"];
+                        return App.LocalizedResources["ErrorPasswordLength"];
+                    if (Validation.MatchesRequirements(Password) != true)
+                        return App.LocalizedResources["ErrorPasswordUppercase"];
                     return string.Empty;
                 }
                 else if (name.Equals("Login"))
                 {
-                    if (StartsWithNumber(Login) == true)
-                        return Resources["ErrorLoginStartsWithNumber"];
+                    if (Validation.StartsWithNumber(Login) == true)
+                        return App.LocalizedResources["ErrorLoginStartsWithNumber"];
                     if (string.IsNullOrEmpty(Login))
-                        return Resources["ErrorLoginEmpty"];
+                        return App.LocalizedResources["ErrorLoginEmpty"];
                     if (Login.Length < 4 || Login.Length > 16)
-                        return Resources["ErrorLoginLength"];
+                        return App.LocalizedResources["ErrorLoginLength"];
                     return string.Empty;
                 }
                 else if (name.Equals("Confirm"))
                 {
-                    if (PasswordsMatch() != true)
-                        return Resources["ErrorPasswordsMatch"];
+                    if (Validation.PasswordsMatch(Password, Confirm) != true)
+                        return App.LocalizedResources["ErrorPasswordsMatch"];
                     return string.Empty;
                 }
                 else
@@ -109,31 +98,7 @@ namespace ProfileBook
                 }
             }
         }
-        private bool MatchesRequirements(string value)
-        {
-            var hasNumber = new Regex(@"[0-9]+");
-            var hasUpperChar = new Regex(@"[A-Z]+");
-            var hasLowerChar = new Regex(@"[a-z]+");
 
-            return hasNumber.IsMatch(value) && hasUpperChar.IsMatch(value) && hasLowerChar.IsMatch(value);
-        }
-        private bool StartsWithNumber(string value)
-        {
-            var startsWithNumber = new Regex(@"^\d");
-
-            return startsWithNumber.IsMatch(value);
-        }
-        private bool PasswordsMatch()
-        {
-            if (this.Confirm == this.Password)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
         #endregion
     }
 }

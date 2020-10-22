@@ -28,8 +28,6 @@ namespace ProfileBook
         }
         #endregion
 
-
-
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChanged(String Name)

@@ -11,14 +11,8 @@ namespace ProfileBook
     public class AddProfileBehavior : Behavior<ContentPage>
     {
         SfDataForm addProfileForm;
-        public LocalizedResources Resources
-        {
-            get;
-            private set;
-        }
         protected override void OnAttachedTo(ContentPage bindable)
         {
-            Resources = new LocalizedResources(typeof(AppResources), App.Language);
             base.OnAttachedTo(bindable);
 
             addProfileForm = bindable.FindByName<SfDataForm>("addProfileForm");
@@ -30,19 +24,19 @@ namespace ProfileBook
             {
                 Name = "Nickname",
                 Editor = "Text",
-                LabelText = Resources["NicknameField"]
+                LabelText = App.LocalizedResources["NicknameField"]
             });
             items.Add(new DataFormTextItem()
             {
                 Name = "Name",
                 Editor = "Text",
-                LabelText = Resources["NameField"]
+                LabelText = App.LocalizedResources["NameField"]
             });
             items.Add(new DataFormTextItem()
             {
                 Name = "Description",
                 Editor = "Text",
-                LabelText = Resources["DescriptionField"]
+                LabelText = App.LocalizedResources["DescriptionField"]
             });
 
             addProfileForm.Items = items;

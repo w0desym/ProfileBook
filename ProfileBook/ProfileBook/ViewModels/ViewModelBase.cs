@@ -19,18 +19,16 @@ namespace ProfileBook.ViewModels
             get { return _title; }
             set { SetProperty(ref _title, value); }
         }
-        public LocalizedResources Resources
+        public LocalizedResources LocalizedResources
         {
             get;
             private set;
         }
 
-        public ViewModelBase(INavigationService navigationService,
-            ISettingsManager settingsManager)
+        public ViewModelBase(INavigationService navigationService)
         {
-            SettingsManager = settingsManager;
             NavigationService = navigationService;
-            Resources = new LocalizedResources(typeof(AppResources), settingsManager.Language);
+            LocalizedResources = App.LocalizedResources;
         }
 
         public virtual void Initialize(INavigationParameters parameters)

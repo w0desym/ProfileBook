@@ -8,7 +8,7 @@
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="ProfileBook.Views.MainListPage"
              Style="{StaticResource PageStyle}"
-             Title="{Binding Resources[MainListPage]}">
+             Title="{Binding LocalizedResources[MainListPage]}">
     
     <ContentPage.ToolbarItems>
         <ToolbarItem
@@ -44,11 +44,11 @@
                     <ViewCell>
                         <ViewCell.ContextActions>
                             <MenuItem
-                                Text="{Binding Path=BindingContext.Resources[MenuEdit], Source={x:Reference this}}" 
+                                Text="{Binding Path=BindingContext.LocalizedResources[MenuEdit], Source={x:Reference this}}" 
                                 Command="{Binding Source={x:Reference this}, Path=BindingContext.Edit}"
                                 CommandParameter="{Binding .}"/>
                             <MenuItem
-                                Text="{Binding Path=BindingContext.Resources[MenuDelete], Source={x:Reference this}}" 
+                                Text="{Binding Path=BindingContext.LocalizedResources[MenuDelete], Source={x:Reference this}}" 
                                 Command="{Binding Source={x:Reference this}, Path=BindingContext.Delete}"
                                 CommandParameter="{Binding .}"/>
                         </ViewCell.ContextActions>

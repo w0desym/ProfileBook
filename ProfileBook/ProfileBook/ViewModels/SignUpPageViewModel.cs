@@ -1,4 +1,5 @@
 ﻿using Prism.Navigation;
+using ProfileBook.Resources;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text.RegularExpressions;
@@ -31,15 +32,15 @@ namespace ProfileBook.ViewModels
 
         #region Constructor
         public SignUpPageViewModel(INavigationService navigationService,
-            ISettingsManager settingsManager,
             IAuthenticationService authenticationService,
             IAuthorizationService authorizationService)
-            : base(navigationService, settingsManager)
+            : base(navigationService)
         {
-            this.SignUp = new User();
             _navigationService = navigationService;
             _authenticationService = authenticationService;
             _authorizationService = authorizationService;
+            this.SignUp = new User();
+
             
         }
         #endregion

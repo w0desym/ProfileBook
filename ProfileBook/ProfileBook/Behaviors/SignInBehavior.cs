@@ -16,14 +16,9 @@ namespace ProfileBook
     {
         SfDataForm signInForm;
         Button button;
-        public LocalizedResources Resources
-        {
-            get;
-            private set;
-        }
+
         protected override void OnAttachedTo(ContentPage bindable)
         {
-            Resources = new LocalizedResources(typeof(AppResources), App.Language);
             base.OnAttachedTo(bindable);
 
             signInForm = bindable.FindByName<SfDataForm>("signInForm");
@@ -36,7 +31,7 @@ namespace ProfileBook
             {
                 Name = "Login",
                 Editor = "Text",
-                LabelText = Resources["LoginField"],
+                LabelText = App.LocalizedResources["LoginField"],
                 ValidationLabelStyle = new LabelStyle() { FontSize = 14 },
                 TextInputLayoutSettings = new TextInputLayoutSettings() { ReserveSpaceForAssistiveLabels = true }
             }); ;
@@ -44,7 +39,7 @@ namespace ProfileBook
             {
                 Name = "Password",
                 Editor = "Password",
-                LabelText = Resources["PasswordField"],
+                LabelText = App.LocalizedResources["PasswordField"],
                 EnablePasswordVisibilityToggle = true,
                 ValidationLabelStyle = new LabelStyle() { FontSize = 14 },
                 TextInputLayoutSettings = new TextInputLayoutSettings() { ReserveSpaceForAssistiveLabels = true }

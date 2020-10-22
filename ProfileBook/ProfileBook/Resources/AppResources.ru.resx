@@ -129,9 +129,6 @@
   <data name="ByNicknameButton" xml:space="preserve">
     <value>По Никнейму</value>
   </data>
-  <data name="ChooseLanguageDropDown" xml:space="preserve">
-    <value>Выберите язык</value>
-  </data>
   <data name="ConfirmField" xml:space="preserve">
     <value>Подтвердите пароль</value>
   </data>

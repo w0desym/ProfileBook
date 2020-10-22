@@ -1,5 +1,6 @@
 ﻿using Plugin.Settings.Abstractions;
 using Prism.Navigation;
+using ProfileBook.Resources;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -43,13 +44,13 @@ namespace ProfileBook.ViewModels
             ISettingsManager settingsManager,
             IAuthenticationService authenticationService,
             IAuthorizationService authorizationService)
-            : base(navigationService, settingsManager)
+            : base(navigationService)
         {
-            this.SignIn = new User();
             _navigationService = navigationService;
             _settingsManager = settingsManager;
             _authenticationService = authenticationService;
             _authorizationService = authorizationService;
+            this.SignIn = new User();
 
             Application.Current.UserAppTheme = (OSAppTheme)_settingsManager.Theme;
         }

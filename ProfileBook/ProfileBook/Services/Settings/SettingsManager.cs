@@ -1,4 +1,5 @@
 ﻿using Plugin.Settings.Abstractions;
+using ProfileBook.Resources;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -34,7 +35,7 @@ namespace ProfileBook
             set
             {
                 _settings.AddOrUpdateValue(nameof(Language), value);
-                App.Language = value;
+                App.LocalizedResources = new LocalizedResources(typeof(AppResources), value);
             }
         }
     }

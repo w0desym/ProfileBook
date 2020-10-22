@@ -97,15 +97,6 @@ namespace ProfileBook.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose Language.
-        /// </summary>
-        internal static string ChooseLanguageDropDown {
-            get {
-                return ResourceManager.GetString("ChooseLanguageDropDown", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Confirm Password.
         /// </summary>
         internal static string ConfirmField {

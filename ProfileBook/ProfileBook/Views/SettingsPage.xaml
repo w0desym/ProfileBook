@@ -6,47 +6,47 @@
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="ProfileBook.Views.SettingsPage"
              Style="{StaticResource PageStyle}"
-             Title="{Binding Resources[SettingsPage]}">
+             Title="{Binding LocalizedResources[SettingsPage]}">
 
 
     <StackLayout Padding="30">
         <StackLayout>
             <Label 
-                Text="{Binding Resources[SortingLabel]}"
+                Text="{Binding LocalizedResources[SortingLabel]}"
                 Style="{StaticResource HeaderLabelStyle}"/>
             <buttons:SfRadioGroup>
                 <buttons:SfRadioButton
-                    Text="{Binding Resources[ByNicknameButton]}"
+                    Text="{Binding LocalizedResources[ByNicknameButton]}"
                     Style="{StaticResource RadioButtonStyle}"
                     IsChecked="{Binding IsNicknameChecked}"/>
                 <buttons:SfRadioButton
-                    Text="{Binding Resources[ByNameButton]}"
+                    Text="{Binding LocalizedResources[ByNameButton]}"
                     Style="{StaticResource RadioButtonStyle}"
                     IsChecked="{Binding IsNameChecked}"/>
                 <buttons:SfRadioButton
-                    Text="{Binding Resources[ByDateButton]}"
+                    Text="{Binding LocalizedResources[ByDateButton]}"
                     Style="{StaticResource RadioButtonStyle}"
                     IsChecked="{Binding IsDateChecked}"/>
             </buttons:SfRadioGroup>
         </StackLayout>
         <StackLayout>
             <Label 
-                Text="{Binding Resources[ThemeLabel]}"
+                Text="{Binding LocalizedResources[ThemeLabel]}"
                 Style="{StaticResource HeaderLabelStyle}"/>
             <buttons:SfRadioGroup>
                 <buttons:SfRadioButton
-                    Text="{Binding Resources[LightThemeButton]}"
+                    Text="{Binding LocalizedResources[LightThemeButton]}"
                     Style="{StaticResource RadioButtonStyle}"
                     IsChecked="{Binding IsLightThemeChecked}"/>
                 <buttons:SfRadioButton
-                    Text="{Binding Resources[DarkThemeButton]}"
+                    Text="{Binding LocalizedResources[DarkThemeButton]}"
                     Style="{StaticResource RadioButtonStyle}"
                     IsChecked="{Binding IsDarkThemeChecked}"/>
             </buttons:SfRadioGroup>
         </StackLayout>
         <StackLayout>
             <Label 
-                Text="{Binding Resources[LocalizationLabel]}"
+                Text="{Binding LocalizedResources[LocalizationLabel]}"
                 Style="{StaticResource HeaderLabelStyle}"/>
             <Picker
                 ItemsSource="{Binding Languages}"

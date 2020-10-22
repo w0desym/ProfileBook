@@ -19,14 +19,7 @@ namespace ProfileBook
         private DateTime dateTime;
         #endregion
 
-        #region Constructor
-        public Profile()
-        {
-
-        }
-        #endregion
-
-        #region Properties with DataAnnotations
+        #region Properties
         [Display(AutoGenerateField = false)]
         public int Match_id
         {

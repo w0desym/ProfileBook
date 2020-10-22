@@ -121,10 +121,9 @@ namespace ProfileBook.ViewModels
 
         public SettingsPageViewModel(INavigationService navigationService,
             ISettingsManager settingsManager)
-            : base(navigationService, settingsManager)
+            : base(navigationService)
         {
             _settingsManager = settingsManager;
-
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)

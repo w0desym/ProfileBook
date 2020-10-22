@@ -19,7 +19,6 @@ namespace ProfileBook.ViewModels
     {
         #region Fields
         private INavigationService _navigationService;
-        private ISettingsManager _settingsManager;
         private IProfileService _profileService;
         private IUserDialogs _userDialogs;
 
@@ -50,13 +49,11 @@ namespace ProfileBook.ViewModels
 
         #region Constructor
         public MainListPageViewModel(INavigationService navigationService,
-            ISettingsManager settingsManager,
             IProfileService profileService,
             IUserDialogs userDialogs)
-            : base(navigationService, settingsManager)
+            : base(navigationService)
         {
             _navigationService = navigationService;
-            _settingsManager = settingsManager;
             _profileService = profileService;
             _userDialogs = userDialogs;
 

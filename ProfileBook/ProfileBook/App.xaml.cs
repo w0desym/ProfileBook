@@ -12,13 +12,14 @@ using Plugin.Settings;
 using Plugin.Media;
 using Plugin.Media.Abstractions;
 using Acr.UserDialogs;
+using ProfileBook.Resources;
 
 namespace ProfileBook
 {
     public partial class App
     {
         ISettingsManager settingsManager;
-        public static string Language { get; set; }
+        public static LocalizedResources LocalizedResources { get; set; }
         public App(IPlatformInitializer initializer)
             : base(initializer)
         {
@@ -34,7 +35,7 @@ namespace ProfileBook
 
             settingsManager = Container.Resolve<ISettingsManager>();
 
-            Language = settingsManager.Language;
+            LocalizedResources = new LocalizedResources(typeof(AppResources), settingsManager.Language);
 
             NavigationService.NavigateAsync("NavigationPage/SignInPage");
         }
@@ -50,9 +51,9 @@ namespace ProfileBook
             containerRegistry.RegisterForNavigation<AddProfilePage, AddProfilePageViewModel>();
             containerRegistry.RegisterForNavigation<SettingsPage, SettingsPageViewModel>();
 
-            containerRegistry.RegisterInstance<ISettings>(CrossSettings.Current);
-            containerRegistry.RegisterInstance<IMedia>(CrossMedia.Current);
-            containerRegistry.RegisterInstance<IUserDialogs>(UserDialogs.Instance);
+            containerRegistry.RegisterInstance(CrossSettings.Current);
+            containerRegistry.RegisterInstance(CrossMedia.Current);
+            containerRegistry.RegisterInstance(UserDialogs.Instance);
 
             containerRegistry.RegisterInstance<ISettingsManager>(Container.Resolve<SettingsManager>());
             containerRegistry.RegisterInstance<IRepositoryService<User>>(Container.Resolve<RepositoryService<User>>());
