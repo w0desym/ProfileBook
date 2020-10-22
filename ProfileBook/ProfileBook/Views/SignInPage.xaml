@@ -8,7 +8,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ProfileBook.Views.SignInPage"
              Style="{StaticResource PageStyle}"
-             Title="{Binding Title}">
+             Title="{Binding Resources[SignInPage]}">
 
     <ContentPage.Behaviors>
         <local:SignInBehavior/>
@@ -35,7 +35,7 @@
                 ContainerBackgroundColor="#afc9ff"
                 DataObject="{Binding SignIn, Mode=TwoWay}"/>
             <Button
-                Text="Sign In"
+                Text="{Binding Resources[SignInButton]}"
                 Style="{StaticResource SignButtonStyle}"
                 x:Name="signInButton"
                 HorizontalOptions="Center"
@@ -51,9 +51,9 @@
                 <Label.FormattedText>
                     <FormattedString>
                         <Span
-                            Text="Not registered yet? "/>
+                            Text="{Binding Resources[NotRegisteredLabel]}"/>
                         <Span 
-                            Text="Sign up"
+                            Text="{Binding Resources[SignUpLabel]}"
                             TextColor="Blue"
                             TextDecorations="Underline">
                             <Span.GestureRecognizers>

@@ -12,7 +12,7 @@ namespace ProfileBook.ViewModels
 {
     public class SettingsPageViewModel : ViewModelBase
     {
-        private ISettings _settings;
+        private ISettingsManager _settingsManager;
         private SortOption _sortOption;
         private OSAppTheme _theme;
 
@@ -22,6 +22,14 @@ namespace ProfileBook.ViewModels
         private bool isDateChecked;
         private bool isNicknameChecked;
         private bool isNameChecked;
+
+        private string selectedLanguage;
+
+        public List<string> Languages { get; set; } = new List<string>()
+        {
+            "EN",
+            "RU"
+        };
 
 
         public bool IsLightThemeChecked
@@ -100,28 +108,37 @@ namespace ProfileBook.ViewModels
             }
         }
 
-        public SettingsPageViewModel(INavigationService navigationService,
-            ISettings settings)
-            : base(navigationService)
+        public string SelectedLanguage
         {
-            Title = "Preferences";
-            _settings = settings;
+            get { return selectedLanguage; }
+            set
+            {
+                if (!string.IsNullOrEmpty(value))
+                    selectedLanguage = value;
+                SetLanguage();
+            }
+        }
+
+        public SettingsPageViewModel(INavigationService navigationService,
+            ISettingsManager settingsManager)
+            : base(navigationService, settingsManager)
+        {
+            _settingsManager = settingsManager;
 
         }
 
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            _sortOption = (SortOption)_settings.GetValueOrDefault("sorting", 0);
+            _sortOption = (SortOption)_settingsManager.Sorting;
             SetSortingRadioButton();
-            _theme = (OSAppTheme)_settings.GetValueOrDefault("theme", 1);
+            _theme = (OSAppTheme)_settingsManager.Theme;
             SetThemeRadioButton();
         }
 
         private void SaveSorting()
         {
-            _settings.AddOrUpdateValue("sorting", (int)_sortOption);
+            _settingsManager.Sorting = (int)_sortOption;
         }
-
         void SetSortingRadioButton()
         {
             switch ((int)_sortOption)
@@ -146,7 +163,7 @@ namespace ProfileBook.ViewModels
         }
         private void SaveTheme()
         {
-            _settings.AddOrUpdateValue("theme", (int)_theme);
+            _settingsManager.Theme = (int)_theme;
         }
         void SetThemeRadioButton()
         {
@@ -164,6 +181,12 @@ namespace ProfileBook.ViewModels
                     }
                 default: break;
             }
+        }
+        private void SetLanguage()
+        {
+            _settingsManager.Language = SelectedLanguage;
+            MessagingCenter.Send<object, CultureChangedMessage>(this,
+                    string.Empty, new CultureChangedMessage(SelectedLanguage));
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using ProfileBook.Resources;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,7 @@ namespace ProfileBook
     public class BaseModel
     {
         #region Fields
+        protected ISettingsManager SettingsManager { get; private set; }
         private int id;
         #endregion
 
@@ -25,6 +27,8 @@ namespace ProfileBook
             }
         }
         #endregion
+
+
 
         #region PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

@@ -53,13 +53,13 @@ namespace ProfileBook.ViewModels
             ISettingsManager settingsManager,
             IProfileService profileService,
             IUserDialogs userDialogs)
-            : base(navigationService)
+            : base(navigationService, settingsManager)
         {
-            Title = "Profiles";
             _navigationService = navigationService;
             _settingsManager = settingsManager;
             _profileService = profileService;
             _userDialogs = userDialogs;
+
             UpdateList();
         }
         #endregion 

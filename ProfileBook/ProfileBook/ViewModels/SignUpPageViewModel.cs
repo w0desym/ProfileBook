@@ -31,15 +31,16 @@ namespace ProfileBook.ViewModels
 
         #region Constructor
         public SignUpPageViewModel(INavigationService navigationService,
+            ISettingsManager settingsManager,
             IAuthenticationService authenticationService,
             IAuthorizationService authorizationService)
-            : base(navigationService)
+            : base(navigationService, settingsManager)
         {
-            Title = "Signing Up";
             this.SignUp = new User();
             _navigationService = navigationService;
             _authenticationService = authenticationService;
             _authorizationService = authorizationService;
+            
         }
         #endregion
 

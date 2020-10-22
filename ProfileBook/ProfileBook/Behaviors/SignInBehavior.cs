@@ -1,8 +1,10 @@
-﻿using Syncfusion.XForms.Buttons;
+﻿using ProfileBook.Resources;
+using Syncfusion.XForms.Buttons;
 using Syncfusion.XForms.DataForm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using Xamarin.Forms;
@@ -14,8 +16,14 @@ namespace ProfileBook
     {
         SfDataForm signInForm;
         Button button;
+        public LocalizedResources Resources
+        {
+            get;
+            private set;
+        }
         protected override void OnAttachedTo(ContentPage bindable)
         {
+            Resources = new LocalizedResources(typeof(AppResources), App.Language);
             base.OnAttachedTo(bindable);
 
             signInForm = bindable.FindByName<SfDataForm>("signInForm");
@@ -28,13 +36,15 @@ namespace ProfileBook
             {
                 Name = "Login",
                 Editor = "Text",
+                LabelText = Resources["LoginField"],
                 ValidationLabelStyle = new LabelStyle() { FontSize = 14 },
                 TextInputLayoutSettings = new TextInputLayoutSettings() { ReserveSpaceForAssistiveLabels = true }
-            });
+            }); ;
             items.Add(new DataFormTextItem()
             {
                 Name = "Password",
                 Editor = "Password",
+                LabelText = Resources["PasswordField"],
                 EnablePasswordVisibilityToggle = true,
                 ValidationLabelStyle = new LabelStyle() { FontSize = 14 },
                 TextInputLayoutSettings = new TextInputLayoutSettings() { ReserveSpaceForAssistiveLabels = true }

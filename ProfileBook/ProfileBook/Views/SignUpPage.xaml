@@ -8,7 +8,7 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ProfileBook.Views.SignUpPage"
              Style="{StaticResource PageStyle}"
-             Title="{Binding Title}">
+             Title="{Binding Resources[SignUpPage]}">
 
     <ContentPage.Behaviors>
         <local:SignUpBehavior/>
@@ -36,7 +36,7 @@
             CommitMode="PropertyChanged"
             DataObject="{Binding SignUp}"/>
         <Button
-            Text="Sign Up"
+            Text="{Binding Resources[SignUpButton]}"
             Style="{StaticResource SignButtonStyle}"
             x:Name="signUpButton"
             HorizontalOptions="Center"

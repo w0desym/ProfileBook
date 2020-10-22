@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using ProfileBook.Resources;
+using SQLite;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,21 +15,25 @@ namespace ProfileBook
     public class User : BaseModel, INotifyPropertyChanged, IDataErrorInfo
     {
         #region Fields
+
         private string login;
         private string password;
         private string confirm;
         #endregion
-
+        public LocalizedResources Resources
+        {
+            get;
+            private set;
+        }
         #region Constructor
+
         public User()
         {
-
+            Resources = new LocalizedResources(typeof(AppResources), App.Language);
         }
         #endregion
 
         #region Properties with DataAnnotations
-        [Required(AllowEmptyStrings = false, ErrorMessage = "This field should not be empty")]
-        [StringLength(30, ErrorMessage = "Login should not exceed 30 characters")]
         public string Login
         {
             get { return this.login; }
@@ -38,9 +43,6 @@ namespace ProfileBook
                 this.RaisePropertyChanged("Login");
             }
         }
-
-        [Required(AllowEmptyStrings = false, ErrorMessage = "This field should not be empty")]
-        [StringLength(16, ErrorMessage = "Password should have more than 8 and less than 16 characters", MinimumLength = 8)]
         public string Password
         {
             get { return this.password; }
@@ -50,8 +52,6 @@ namespace ProfileBook
                 this.RaisePropertyChanged("Password");
             }
         }
-
-        [Required(AllowEmptyStrings = false, ErrorMessage = "This field should not be empty")]
         public string Confirm
         {
             get { return this.confirm; }
@@ -79,27 +79,34 @@ namespace ProfileBook
             {
                 if (name.Equals("Password"))
                 {
+                    if (string.IsNullOrEmpty(Password))
+                        return Resources["ErrorPasswordEmpty"];
+                    if (Password.Length < 8 || Password.Length > 16)
+                        return Resources["ErrorPasswordLength"];
                     if (MatchesRequirements(Password) != true)
-                        return "At least one uppercase, lowercase and number";
+                        return Resources["ErrorPasswordUppercase"];
                     return string.Empty;
                 }
                 else if (name.Equals("Login"))
                 {
                     if (StartsWithNumber(Login) == true)
-                        return "Should not start with a number";
+                        return Resources["ErrorLoginStartsWithNumber"];
+                    if (string.IsNullOrEmpty(Login))
+                        return Resources["ErrorLoginEmpty"];
+                    if (Login.Length < 4 || Login.Length > 16)
+                        return Resources["ErrorLoginLength"];
                     return string.Empty;
                 }
                 else if (name.Equals("Confirm"))
                 {
                     if (PasswordsMatch() != true)
-                        return "Passwords should match";
+                        return Resources["ErrorPasswordsMatch"];
                     return string.Empty;
                 }
                 else
                 {
                     return string.Empty;
                 }
-
             }
         }
         private bool MatchesRequirements(string value)

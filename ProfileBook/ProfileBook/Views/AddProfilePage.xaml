@@ -2,12 +2,16 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
+             xmlns:local="clr-namespace:ProfileBook"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:dataForm="clr-namespace:Syncfusion.XForms.DataForm;assembly=Syncfusion.SfDataForm.XForms"
              x:Class="ProfileBook.Views.AddProfilePage"
              Style="{StaticResource PageStyle}"
              Title="{Binding Title}">
 
+    <ContentPage.Behaviors>
+        <local:AddProfileBehavior/>
+    </ContentPage.Behaviors>
     <ContentPage.ToolbarItems>
         <ToolbarItem
             Order="Primary"
@@ -25,7 +29,7 @@
             </Image.GestureRecognizers>
         </Image>
         <dataForm:SfDataForm
-            x:Name="dataForm"
+            x:Name="addProfileForm"
             ContainerType="Filled"
             LayoutOptions="TextInputLayout"
             HorizontalOptions="FillAndExpand"

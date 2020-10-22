@@ -15,14 +15,11 @@ namespace ProfileBook
     {
         IRepositoryService<Profile> _repositoryService;
         ISettingsManager _settingsManager;
-        ISettings _settings;
         public ProfileService(IRepositoryService<Profile> repositoryService,
-            ISettingsManager settingsManager,
-            ISettings settings)
+            ISettingsManager settingsManager)
         {
             _repositoryService = repositoryService;
             _settingsManager = settingsManager;
-            _settings = settings;
         }
         public int SaveProfile(Profile item)
         {
@@ -38,7 +35,7 @@ namespace ProfileBook
         }
         public IEnumerable<Profile> SortProfiles()
         {
-            int sortKey = _settings.GetValueOrDefault("sorting", 0);
+            int sortKey = _settingsManager.Sorting;
             return _repositoryService.SortTable(sortKey);
         }
     }

@@ -54,9 +54,8 @@ namespace ProfileBook.ViewModels
             IProfileService profileService,
             IUserDialogs userDialogs,
             IMedia media)
-            : base(navigationService)
+            : base(navigationService, settingsManager)
         {
-            Title = "Adding New Profile";
             this.Profile = new Profile();
             ImagePath = "pic_profile.png";
             _navigationService = navigationService;
@@ -64,6 +63,7 @@ namespace ProfileBook.ViewModels
             _profileService = profileService;
             _userDialogs = userDialogs;
             _media = media;
+            Title = Resources["AddProfilePage"];
         }
         #endregion
 
@@ -73,6 +73,7 @@ namespace ProfileBook.ViewModels
             var _profile = parameters.GetValue<Profile>("profile");
             if (_profile != null)
             {
+                this.Title = Resources["EditProfilePage"];
                 this.Profile = _profile;
                 this.ImagePath = _profile.ImgPath;
             }

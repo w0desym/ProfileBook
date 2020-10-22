@@ -8,7 +8,7 @@
              xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              x:Class="ProfileBook.Views.MainListPage"
              Style="{StaticResource PageStyle}"
-             Title="{Binding Title}">
+             Title="{Binding Resources[MainListPage]}">
     
     <ContentPage.ToolbarItems>
         <ToolbarItem
@@ -28,7 +28,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label 
-            Text="No profiles added"   
+            Text="{Binding Resources[NoProfilesLabel]}"   
             HorizontalOptions="Center"
             VerticalOptions="Center"
             Style="{StaticResource MiniLabelStyle}"
@@ -44,11 +44,11 @@
                     <ViewCell>
                         <ViewCell.ContextActions>
                             <MenuItem
-                                Text="Edit"
+                                Text="{Binding Path=BindingContext.Resources[MenuEdit], Source={x:Reference this}}" 
                                 Command="{Binding Source={x:Reference this}, Path=BindingContext.Edit}"
                                 CommandParameter="{Binding .}"/>
                             <MenuItem
-                                Text="Delete"
+                                Text="{Binding Path=BindingContext.Resources[MenuDelete], Source={x:Reference this}}" 
                                 Command="{Binding Source={x:Reference this}, Path=BindingContext.Delete}"
                                 CommandParameter="{Binding .}"/>
                         </ViewCell.ContextActions>

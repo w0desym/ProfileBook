@@ -9,7 +9,7 @@ namespace ProfileBook.ViewModels
     {
         #region Fields
         private INavigationService _navigationService;
-        private ISettings _settings;
+        private ISettingsManager _settingsManager;
         private IAuthenticationService _authenticationService;
         private IAuthorizationService _authorizationService;
 
@@ -40,19 +40,18 @@ namespace ProfileBook.ViewModels
 
         #region Constructor
         public SignInPageViewModel(INavigationService navigationService,
-            ISettings settings,
+            ISettingsManager settingsManager,
             IAuthenticationService authenticationService,
             IAuthorizationService authorizationService)
-            : base(navigationService)
+            : base(navigationService, settingsManager)
         {
-            Title = "Signing In";
             this.SignIn = new User();
             _navigationService = navigationService;
-            _settings = settings;
+            _settingsManager = settingsManager;
             _authenticationService = authenticationService;
             _authorizationService = authorizationService;
 
-            Application.Current.UserAppTheme = (OSAppTheme)_settings.GetValueOrDefault("theme", 1);
+            Application.Current.UserAppTheme = (OSAppTheme)_settingsManager.Theme;
         }
         #endregion
 

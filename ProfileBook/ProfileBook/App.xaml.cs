@@ -17,6 +17,8 @@ namespace ProfileBook
 {
     public partial class App
     {
+        ISettingsManager settingsManager;
+        public static string Language { get; set; }
         public App(IPlatformInitializer initializer)
             : base(initializer)
         {
@@ -29,6 +31,10 @@ namespace ProfileBook
             Device.SetFlags(new string[] { "AppTheme_Experimental" });
 
             InitializeComponent();
+
+            settingsManager = Container.Resolve<ISettingsManager>();
+
+            Language = settingsManager.Language;
 
             NavigationService.NavigateAsync("NavigationPage/SignInPage");
         }

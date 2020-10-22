@@ -1,4 +1,5 @@
-﻿using Syncfusion.XForms.Buttons;
+﻿using ProfileBook.Resources;
+using Syncfusion.XForms.Buttons;
 using Syncfusion.XForms.DataForm;
 using System;
 using System.Collections.Generic;
@@ -14,8 +15,14 @@ namespace ProfileBook
     {
         SfDataForm signUpForm;
         Button button;
+        public LocalizedResources Resources
+        {
+            get;
+            private set;
+        }
         protected override void OnAttachedTo(ContentPage bindable)
         {
+            Resources = new LocalizedResources(typeof(AppResources), App.Language);
             base.OnAttachedTo(bindable);
             signUpForm = bindable.FindByName<SfDataForm>("signUpForm");
             button = bindable.FindByName<Button>("signUpButton");
@@ -27,6 +34,7 @@ namespace ProfileBook
             {
                 Name = "Login",
                 Editor = "Text",
+                LabelText = Resources["LoginField"],
                 ValidationLabelStyle = new LabelStyle() { FontSize = 14 },
                 TextInputLayoutSettings = new TextInputLayoutSettings() { ReserveSpaceForAssistiveLabels = true }
             });
@@ -34,6 +42,7 @@ namespace ProfileBook
             {
                 Name = "Password",
                 Editor = "Password",
+                LabelText = Resources["PasswordField"],
                 EnablePasswordVisibilityToggle = true,
                 ValidationLabelStyle = new LabelStyle() { FontSize = 14 },
                 TextInputLayoutSettings = new TextInputLayoutSettings() { ReserveSpaceForAssistiveLabels = true }
@@ -43,7 +52,7 @@ namespace ProfileBook
                 Name = "Confirm",
                 Editor = "Password",
                 EnablePasswordVisibilityToggle = true,
-                LabelText = "Confirm password",
+                LabelText = Resources["ConfirmField"],
                 ValidationLabelStyle = new LabelStyle() { FontSize = 14 },
                 TextInputLayoutSettings = new TextInputLayoutSettings() { ReserveSpaceForAssistiveLabels = true }
             });
