@@ -1,9 +1,6 @@
-﻿using SQLite;
-using Syncfusion.XForms.DataForm;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
 
 namespace ProfileBook
 {

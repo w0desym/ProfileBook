@@ -1,8 +1,4 @@
 ﻿using Prism.Navigation;
-using ProfileBook.Resources;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 using System.Windows.Input;
 using Xamarin.Forms;
 

@@ -1,6 +1,4 @@
-﻿using Plugin.Settings.Abstractions;
-using Prism.Navigation;
-using ProfileBook.Resources;
+﻿using Prism.Navigation;
 using System.Windows.Input;
 using Xamarin.Forms;
 

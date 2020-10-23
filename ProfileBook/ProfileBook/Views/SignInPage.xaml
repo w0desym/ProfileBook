@@ -4,7 +4,6 @@
              xmlns:prism="http://prismlibrary.com"
              xmlns:local="clr-namespace:ProfileBook"
              xmlns:dataForm="clr-namespace:Syncfusion.XForms.DataForm;assembly=Syncfusion.SfDataForm.XForms"
-             xmlns:buttons="clr-namespace:Syncfusion.XForms.Buttons;assembly=Syncfusion.Buttons.XForms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ProfileBook.Views.SignInPage"
              Style="{StaticResource PageStyle}"

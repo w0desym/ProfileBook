@@ -4,15 +4,15 @@
     x:Class="ProfileBook.Views.PopupImagePage"
     xmlns:popups="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup">
 
-    <StackLayout HorizontalOptions="CenterAndExpand" 
-          VerticalOptions="CenterAndExpand"
-          Margin="20"
-          BackgroundColor="Transparent"
-                 HeightRequest="300"
-                 WidthRequest="300">
-        <Image x:Name="ImageView" 
-               Aspect="AspectFit" 
-               HeightRequest="300"
-               WidthRequest="300"/>
+    <StackLayout 
+        HorizontalOptions="CenterAndExpand"
+        VerticalOptions="CenterAndExpand"
+        BackgroundColor="Transparent"
+        HeightRequest="350"
+        WidthRequest="350">
+        <Image x:Name="imagePopup"
+               Aspect="AspectFit"
+               HeightRequest="350"
+               WidthRequest="350"/>
     </StackLayout>
 </popups:PopupPage>

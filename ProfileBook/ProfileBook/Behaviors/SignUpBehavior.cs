@@ -1,12 +1,5 @@
-﻿using ProfileBook.Resources;
-using Syncfusion.XForms.Buttons;
-using Syncfusion.XForms.DataForm;
-using System;
-using System.Collections.Generic;
+﻿using Syncfusion.XForms.DataForm;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using Xamarin.Forms;
 
 namespace ProfileBook

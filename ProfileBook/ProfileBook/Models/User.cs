@@ -1,15 +1,5 @@
-﻿using ProfileBook.Resources;
-using SQLite;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using Xamarin.Forms;
 
 namespace ProfileBook
 {

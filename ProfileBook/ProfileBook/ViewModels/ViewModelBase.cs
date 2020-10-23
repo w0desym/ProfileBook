@@ -1,10 +1,5 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 using Prism.Navigation;
-using ProfileBook.Resources;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ProfileBook.ViewModels
 {

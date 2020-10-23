@@ -1,14 +1,7 @@
 ﻿using Acr.UserDialogs;
 using Plugin.Media.Abstractions;
-using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Navigation;
-using SQLite;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
 using System.Windows.Input;
 using Xamarin.Forms;
 
