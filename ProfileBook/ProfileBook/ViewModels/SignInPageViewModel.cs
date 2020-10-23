@@ -15,7 +15,7 @@ namespace ProfileBook.ViewModels
         private IAuthorizationService _authorizationService;
 
         private User signIn;
-        private bool isOn;
+        private bool isButtonEnabled;
         #endregion
 
         #region Properties
@@ -28,13 +28,13 @@ namespace ProfileBook.ViewModels
                 this.RaisePropertyChanged("SignIn");
             }
         }
-        public bool IsOn
+        public bool IsButtonEnabled
         {
-            get { return this.isOn; }
+            get { return this.isButtonEnabled; }
             set
             {
-                this.isOn = value;
-                this.RaisePropertyChanged("IsOn");
+                this.isButtonEnabled = value;
+                this.RaisePropertyChanged("IsButtonEnabled");
             }
         }
         #endregion
@@ -52,7 +52,7 @@ namespace ProfileBook.ViewModels
             _authorizationService = authorizationService;
             this.SignIn = new User();
 
-            Application.Current.UserAppTheme = (OSAppTheme)_settingsManager.Theme;
+            
         }
         #endregion
 
@@ -63,31 +63,42 @@ namespace ProfileBook.ViewModels
             if (navMode == 0)
             {
                 var _parameters = parameters.GetValue<User>("credentials");
-                SignIn = new User() { Login = _parameters.Login, Password = _parameters.Password };
-                IsOn = true;
+                if (_parameters != null)
+                {
+                    SignIn = new User() { Login = _parameters.Login, Password = _parameters.Password };
+                    IsButtonEnabled = true;
+                }
             }
         }
         #endregion
 
         #region Commands
-        public ICommand SignInClickCommand => new Command(async () =>
+        public ICommand _SignInTappedCommand;
+        public ICommand SignInTappedCommand => _SignInTappedCommand ??= new Command(OnSignInTappedCommandAsync);
+
+        public ICommand _SignUpTappedCommand;
+        public ICommand SignUpTappedCommand => _SignUpTappedCommand ??= new Command(OnSignUpTappedCommandAsync);
+        #endregion
+
+        #region Methods
+        private async void OnSignInTappedCommandAsync()
         {
             int id = _authenticationService.Authenticate(SignIn.Login, SignIn.Password);
-            if(id != 0)
+            if (id != 0)
             {
                 _authorizationService.Authorize(id);
                 await _navigationService.NavigateAsync("/NavigationPage/MainListPage");
             }
             else
             {
-                await App.Current.MainPage.DisplayAlert("Whoops..", "Something went wrong.", "OK");
+                await App.Current.MainPage.DisplayAlert(LocalizedResources["AlertWhoops"], LocalizedResources["AlertSomethingWentWrong"], "OK");
                 SignIn = new User() { Login = this.SignIn.Login, Password = string.Empty };
             }
-        });
-        public ICommand SignUpClickCommand => new Command(async () =>
+        }
+        private async void OnSignUpTappedCommandAsync()
         {
             await _navigationService.NavigateAsync("SignUpPage");
-        });
+        }
         #endregion
     }
 }

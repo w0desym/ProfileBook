@@ -13,8 +13,8 @@
         <Color x:Key="NavigationBarTextDarkColor">White</Color>
         <Color x:Key="PageLightColor">WhiteSmoke</Color>
         <Color x:Key="PageDarkColor">#2e3d55</Color>
-        <Color x:Key="SignButtonLightColor">#afc9ff</Color>
-        <Color x:Key="SignButtonDarkColor">#afc9ff</Color>
+        <Color x:Key="SignButtonLightColor">#6f99f0</Color>
+        <Color x:Key="SignButtonDarkColor">#6f99f0</Color>
         <Color x:Key="LabelLightColor">#36393f</Color>
         <Color x:Key="LabelDarkColor">WhiteSmoke</Color>
 

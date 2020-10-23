@@ -39,31 +39,33 @@ namespace ProfileBook.ViewModels
             _navigationService = navigationService;
             _authenticationService = authenticationService;
             _authorizationService = authorizationService;
-            this.SignUp = new User();
-
-            
+            this.SignUp = new User(); 
         }
         #endregion
 
         #region Commands
-        public ICommand SignUpClickCommand => new Command(async () =>
+        public ICommand _SignUpTappedCommand;
+        public ICommand SignUpTappedCommand => _SignUpTappedCommand ??= new Command(OnSignUpTappedCommandAsync);
+        #endregion
+
+        #region Methods
+        private async void OnSignUpTappedCommandAsync()
         {
             int answer = _authenticationService.Authenticate(SignUp.Login, SignUp.Password);
             if (answer != 0)
             {
-                await App.Current.MainPage.DisplayAlert("", "User with that login already exists.", "OK");
+                await App.Current.MainPage.DisplayAlert("", LocalizedResources["AlertUserExists"], "OK");
             }
             else
             {
                 _authorizationService.Register(SignUp);
 
-                NavigationParameters navParams = new NavigationParameters();
-                navParams.Add("credentials", SignUp);
+                NavigationParameters navParams = new NavigationParameters {{ "credentials", SignUp }};
 
-                await App.Current.MainPage.DisplayAlert("", "Registration is successful!", "OK");
+                await App.Current.MainPage.DisplayAlert("", LocalizedResources["AlertRegSuccess"], "OK");
                 await _navigationService.GoBackAsync(navParams);
             }
-        });
+        }
         #endregion
     }
 }

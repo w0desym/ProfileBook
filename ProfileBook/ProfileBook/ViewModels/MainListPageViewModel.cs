@@ -3,7 +3,8 @@ using Prism.AppModel;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
-
+using ProfileBook.Views;
+using Rg.Plugins.Popup.Services;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -19,11 +20,12 @@ namespace ProfileBook.ViewModels
     {
         #region Fields
         private INavigationService _navigationService;
+        private ISettingsManager _settingsManager;
         private IProfileService _profileService;
         private IUserDialogs _userDialogs;
 
         private ObservableCollection<Profile> profileCollection;
-        private bool isShown;
+        private bool isNoProfilesLabelShown;
         #endregion
 
         #region Properties
@@ -36,24 +38,26 @@ namespace ProfileBook.ViewModels
                 this.RaisePropertyChanged("ProfileCollection");
             }
         }
-        public bool IsShown
+        public bool IsNoProfilesLabelShown
         {
-            get { return this.isShown; }
+            get { return this.isNoProfilesLabelShown; }
             set
             {
-                this.isShown = value;
-                this.RaisePropertyChanged("IsShown");
+                this.isNoProfilesLabelShown = value;
+                this.RaisePropertyChanged("IsNoProfilesLabelShown");
             }
         }
         #endregion
 
         #region Constructor
         public MainListPageViewModel(INavigationService navigationService,
+            ISettingsManager settingsManager,
             IProfileService profileService,
             IUserDialogs userDialogs)
             : base(navigationService)
         {
             _navigationService = navigationService;
+            _settingsManager = settingsManager;
             _profileService = profileService;
             _userDialogs = userDialogs;
 
@@ -69,42 +73,66 @@ namespace ProfileBook.ViewModels
         #endregion
 
         #region Commands
-        public ICommand Add => new Command(async () =>
+
+        public ICommand _AddTappedCommand;
+        public ICommand AddTappedCommand => _AddTappedCommand ??= new Command(OnAddTappedCommandAsync);
+
+        public ICommand _EditTappedCommand;
+        public ICommand EditTappedCommand => _EditTappedCommand ??= new Command<Profile>(OnEditTappedCommandAsync);
+
+        public ICommand _DeleteTappedCommand;
+        public ICommand DeleteTappedCommand => _DeleteTappedCommand ??= new Command<Profile>(OnDeleteTappedCommandAsync);
+
+        public ICommand _LogOutTappedCommand;
+        public ICommand LogOutTappedCommand => _LogOutTappedCommand ??= new Command(OnLogOutTappedCommandAsync);
+
+        public ICommand _SettingsTappedCommand;
+        public ICommand SettingsTappedCommand => _SettingsTappedCommand ??= new Command(OnSettingsTappedCommandAsync);
+
+        public ICommand _ImageTappedCommand;
+        public ICommand ImageTappedCommand => _ImageTappedCommand ??= new Command<Profile>(OnImageTappedCommandAsync);
+
+        #endregion
+
+        #region Methods
+        private async void OnAddTappedCommandAsync()
         {
             await _navigationService.NavigateAsync("AddProfilePage");
-        });
-        public ICommand LogOut => new Command(async () =>
+        }
+        private async void OnLogOutTappedCommandAsync()
         {
+            _settingsManager.CurrentUser = -1;
             await _navigationService.NavigateAsync("/NavigationPage/SignInPage");
-        });
-        public ICommand Settings => new Command(async () =>
+        }
+        private async void OnSettingsTappedCommandAsync()
         {
             await _navigationService.NavigateAsync("SettingsPage");
-        });
-        public ICommand Edit => new Command(async (object item) =>
+        }
+        private async void OnEditTappedCommandAsync(Profile profile)
         {
-            NavigationParameters navParams = new NavigationParameters { { "profile", item } };
+            NavigationParameters navParams = new NavigationParameters { { "profile", profile } };
             await _navigationService.NavigateAsync("AddProfilePage", navParams);
-        });
-        public ICommand Delete => new Command(async (object item) =>
+        }
+        private async void OnDeleteTappedCommandAsync(Profile profile)
         {
-            Profile profile = item as Profile;
             var answer = await _userDialogs.ConfirmAsync(new ConfirmConfig()
-                .SetMessage($"Delete {profile.Nickname}?")
+                .SetMessage($"{LocalizedResources["DeleteQuestion"]} {profile.Nickname}?")
                 .UseYesNo());
             if (answer)
             {
                 _profileService.DeleteProfile(profile.Id);
                 UpdateList();
             }
-        });
-        #endregion
+        }
+        private async void OnImageTappedCommandAsync(Profile profile)
+        {
+            await PopupNavigation.Instance.PushAsync(new PopupImagePage(profile.ImgPath));
+        }
 
-        #region Methods
         public void UpdateList()
         {
             ProfileCollection = new ObservableCollection<Profile>(_profileService.SortProfiles());
-            IsShown = ProfileCollection.Count == 0;
+            IsNoProfilesLabelShown = ProfileCollection.Count == 0;
         }
         #endregion
     }

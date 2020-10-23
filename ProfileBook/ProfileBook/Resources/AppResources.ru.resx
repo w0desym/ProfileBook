@@ -120,6 +120,18 @@
   <data name="AddProfilePage" xml:space="preserve">
     <value>Добавление профиля</value>
   </data>
+  <data name="AlertRegSuccess" xml:space="preserve">
+    <value>Регистрация успешна!</value>
+  </data>
+  <data name="AlertSomethingWentWrong" xml:space="preserve">
+    <value>Что-то пошло не так.</value>
+  </data>
+  <data name="AlertUserExists" xml:space="preserve">
+    <value>Пользователь с таким логином уже существует.</value>
+  </data>
+  <data name="AlertWhoops" xml:space="preserve">
+    <value>Упс..</value>
+  </data>
   <data name="ByDateButton" xml:space="preserve">
     <value>По Дате</value>
   </data>
@@ -129,11 +141,17 @@
   <data name="ByNicknameButton" xml:space="preserve">
     <value>По Никнейму</value>
   </data>
+  <data name="CancelLabel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
   <data name="ConfirmField" xml:space="preserve">
     <value>Подтвердите пароль</value>
   </data>
   <data name="DarkThemeButton" xml:space="preserve">
     <value>Тёмная тема</value>
+  </data>
+  <data name="DeleteQuestion" xml:space="preserve">
+    <value>Удалить</value>
   </data>
   <data name="DescriptionField" xml:space="preserve">
     <value>Описание</value>
@@ -161,6 +179,9 @@
   </data>
   <data name="ErrorPasswordUppercase" xml:space="preserve">
     <value>Хотя бы одну прописную, одну строчную и цифру</value>
+  </data>
+  <data name="FromGalleryLabel" xml:space="preserve">
+    <value>Из галереи</value>
   </data>
   <data name="LightThemeButton" xml:space="preserve">
     <value>Светлая тема</value>
@@ -215,6 +236,9 @@
   </data>
   <data name="SortingLabel" xml:space="preserve">
     <value>Сортировка</value>
+  </data>
+  <data name="TakePictureLabel" xml:space="preserve">
+    <value>Сделать снимок</value>
   </data>
   <data name="ThemeLabel" xml:space="preserve">
     <value>Тема</value>

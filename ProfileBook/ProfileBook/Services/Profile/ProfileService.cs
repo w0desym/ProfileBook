@@ -13,8 +13,8 @@ namespace ProfileBook
 {
     class ProfileService : IProfileService
     {
-        IRepositoryService<Profile> _repositoryService;
-        ISettingsManager _settingsManager;
+        private readonly IRepositoryService<Profile> _repositoryService;
+        private readonly ISettingsManager _settingsManager;
         public ProfileService(IRepositoryService<Profile> repositoryService,
             ISettingsManager settingsManager)
         {
@@ -23,7 +23,15 @@ namespace ProfileBook
         }
         public int SaveProfile(Profile item)
         {
-            return _repositoryService.SaveItem(item);
+            if (item.Id != 0)
+            {
+                _repositoryService.UpdateItem(item);
+                return item.Id;
+            }
+            else
+            {
+                return _repositoryService.InsertItem(item);
+            }
         }
         public int DeleteProfile(int id)
         {
@@ -36,7 +44,17 @@ namespace ProfileBook
         public IEnumerable<Profile> SortProfiles()
         {
             int sortKey = _settingsManager.Sorting;
-            return _repositoryService.SortTable(sortKey);
+            switch (sortKey)
+            {
+                case 0:
+                    return _repositoryService.GetItems().Where(x => x.Match_id == _settingsManager.CurrentUser).OrderBy(x => x.DateTime);
+                case 1:
+                    return _repositoryService.GetItems().Where(x => x.Match_id == _settingsManager.CurrentUser).OrderBy(x => x.Name);
+                case 2:
+                    return _repositoryService.GetItems().Where(x => x.Match_id == _settingsManager.CurrentUser).OrderBy(x => x.Nickname);
+                default:
+                    return _repositoryService.GetItems().Where(x => x.Match_id == _settingsManager.CurrentUser).OrderBy(x => x);
+            }
         }
     }
 }

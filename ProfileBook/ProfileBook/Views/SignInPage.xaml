@@ -35,18 +35,17 @@
                 ContainerBackgroundColor="#afc9ff"
                 DataObject="{Binding SignIn, Mode=TwoWay}"/>
             <Button
-                IsEnabled="{Binding IsOn}"
+                IsEnabled="{Binding IsButtonEnabled}"
                 Text="{Binding LocalizedResources[SignInButton]}"
                 Style="{StaticResource SignButtonStyle}"
                 x:Name="signInButton"
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
                 Grid.Row="2"
-                Command="{Binding SignInClickCommand}"/>
+                Command="{Binding SignInTappedCommand}"/>
             <Label
                 HorizontalOptions="Center"
                 VerticalOptions="Center"
-                FontSize="16"
                 Grid.Row="3"
                 Style="{StaticResource MiniLabelStyle}">
                 <Label.FormattedText>
@@ -58,7 +57,7 @@
                             TextColor="Blue"
                             TextDecorations="Underline">
                             <Span.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding SignUpClickCommand}"/>
+                                <TapGestureRecognizer Command="{Binding SignUpTappedCommand}"/>
                             </Span.GestureRecognizers>
                         </Span>
                     </FormattedString>

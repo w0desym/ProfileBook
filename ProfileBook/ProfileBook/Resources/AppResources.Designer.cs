@@ -70,6 +70,42 @@ namespace ProfileBook.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Registration is successful!.
+        /// </summary>
+        internal static string AlertRegSuccess {
+            get {
+                return ResourceManager.GetString("AlertRegSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Something went wrong..
+        /// </summary>
+        internal static string AlertSomethingWentWrong {
+            get {
+                return ResourceManager.GetString("AlertSomethingWentWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with that login already exists..
+        /// </summary>
+        internal static string AlertUserExists {
+            get {
+                return ResourceManager.GetString("AlertUserExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Whoops...
+        /// </summary>
+        internal static string AlertWhoops {
+            get {
+                return ResourceManager.GetString("AlertWhoops", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to By Date.
         /// </summary>
         internal static string ByDateButton {
@@ -97,6 +133,15 @@ namespace ProfileBook.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string CancelLabel {
+            get {
+                return ResourceManager.GetString("CancelLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm Password.
         /// </summary>
         internal static string ConfirmField {
@@ -111,6 +156,15 @@ namespace ProfileBook.Resources {
         internal static string DarkThemeButton {
             get {
                 return ResourceManager.GetString("DarkThemeButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string DeleteQuestion {
+            get {
+                return ResourceManager.GetString("DeleteQuestion", resourceCulture);
             }
         }
         
@@ -192,6 +246,15 @@ namespace ProfileBook.Resources {
         internal static string ErrorPasswordUppercase {
             get {
                 return ResourceManager.GetString("ErrorPasswordUppercase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From gallery.
+        /// </summary>
+        internal static string FromGalleryLabel {
+            get {
+                return ResourceManager.GetString("FromGalleryLabel", resourceCulture);
             }
         }
         
@@ -354,6 +417,15 @@ namespace ProfileBook.Resources {
         internal static string SortingLabel {
             get {
                 return ResourceManager.GetString("SortingLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Take a picture.
+        /// </summary>
+        internal static string TakePictureLabel {
+            get {
+                return ResourceManager.GetString("TakePictureLabel", resourceCulture);
             }
         }
         

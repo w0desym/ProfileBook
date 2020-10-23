@@ -42,7 +42,7 @@
             HorizontalOptions="Center"
             VerticalOptions="Start"
             Grid.Row="2"
-            Margin="0,0,0,40"
-            Command="{Binding SignUpClickCommand}"/>
+            Margin="0,0,0,70"
+            Command="{Binding SignUpTappedCommand}"/>
     </StackLayout>
 </ContentPage>

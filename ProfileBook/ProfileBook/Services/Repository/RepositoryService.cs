@@ -11,19 +11,17 @@ namespace ProfileBook
 {
     class RepositoryService<T> : IRepositoryService<T> where T : BaseModel, new()
     {
-        SQLiteConnection database;
-        private ISettingsManager _settingsManager;
-        public RepositoryService(ISettingsManager settingsManager)
+        private readonly SQLiteConnection database;
+        public RepositoryService()
         {
-            _settingsManager = settingsManager;
             database = new SQLiteConnection(Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ProfileBookDataBase.db"));
             database.CreateTable<Profile>();
             database.CreateTable<User>();
         }
-        public List<T> GetItems()
+        public IEnumerable<T> GetItems()
         {
-            return database.Table<T>().ToList();
+            return database.Table<T>();
         }
         public T GetItem(int id)
         {
@@ -37,39 +35,13 @@ namespace ProfileBook
         {
             return database.DeleteAll<T>();
         }
-        public int SaveItem(T item)
+        public int UpdateItem(T item)
         {
-            if (item.Id != 0)
-            {
-                database.Update(item);
-                return item.Id;
-            }
-            else
-            {
-                return database.Insert(item);
-            }
+            return database.Update(item);
         }
-        public int FindUser(string login, string password)
+        public int InsertItem(T item)
         {
-            User user = database.FindWithQuery<User>("SELECT * FROM User WHERE Login = ? AND Password = ?", login, password);
-            if (user != null)
-                return user.Id;
-            else
-                return 0;
-        }
-        public IEnumerable<Profile> SortTable(int sortKey)
-        {
-            switch (sortKey)
-            {
-                case 0:
-                    return database.Table<Profile>().Where(x => x.Match_id == _settingsManager.CurrentUser).OrderBy(x => x.DateTime);
-                case 1:
-                    return database.Table<Profile>().Where(x => x.Match_id == _settingsManager.CurrentUser).OrderBy(x => x.Name);
-                case 2:
-                    return database.Table<Profile>().Where(x => x.Match_id == _settingsManager.CurrentUser).OrderBy(x => x.Nickname);
-                default:
-                    return database.Table<Profile>().Where(x => x.Match_id == _settingsManager.CurrentUser).OrderBy(x => x);
-            }
+            return database.Insert(item);
         }
     }
 }

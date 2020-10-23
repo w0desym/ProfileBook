@@ -18,7 +18,7 @@ namespace ProfileBook
 {
     public partial class App
     {
-        ISettingsManager settingsManager;
+        private ISettingsManager settingsManager;
         public static LocalizedResources LocalizedResources { get; set; }
         public App(IPlatformInitializer initializer)
             : base(initializer)
@@ -37,7 +37,16 @@ namespace ProfileBook
 
             LocalizedResources = new LocalizedResources(typeof(AppResources), settingsManager.Language);
 
-            NavigationService.NavigateAsync("NavigationPage/SignInPage");
+            Application.Current.UserAppTheme = (OSAppTheme)settingsManager.Theme;
+
+            if (settingsManager.CurrentUser == -1)
+            {
+                NavigationService.NavigateAsync("NavigationPage/SignInPage");
+            }
+            else
+            {
+                NavigationService.NavigateAsync("NavigationPage/MainListPage");
+            }
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

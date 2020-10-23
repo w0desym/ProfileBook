@@ -8,8 +8,8 @@ namespace ProfileBook
 {
     class AuthorizationService : IAuthorizationService
     {
-        private ISettingsManager _settingsManager;
-        private IRepositoryService<User> _repositoryService;
+        private readonly ISettingsManager _settingsManager;
+        private readonly IRepositoryService<User> _repositoryService;
         public AuthorizationService(ISettingsManager settingsManager,
             IRepositoryService<User> repositoryService)
         {
@@ -22,7 +22,15 @@ namespace ProfileBook
         }
         public int Register(User item)
         {
-            return _repositoryService.SaveItem(item);
+            if (item.Id != 0)
+            {
+                _repositoryService.UpdateItem(item);
+                return item.Id;
+            }
+            else
+            {
+                return _repositoryService.InsertItem(item);
+            }
         }
     }
 }

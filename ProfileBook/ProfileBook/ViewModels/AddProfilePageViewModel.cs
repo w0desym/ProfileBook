@@ -63,46 +63,54 @@ namespace ProfileBook.ViewModels
             _media = media;
 
             this.Profile = new Profile();
-            ImagePath = "pic_profile.png";
-            Title = LocalizedResources["AddProfilePage"];
+            ImagePath = "pic_profile.png"; 
         }
         #endregion
 
         #region INavigationAware
         public override void OnNavigatedTo(INavigationParameters parameters)
         {
-            var _profile = parameters.GetValue<Profile>("profile");
-            if (_profile != null)
+            var profile = parameters.GetValue<Profile>("profile");
+            if (profile != null)
             {
-                this.Title = LocalizedResources["EditProfilePage"];
-                this.Profile = _profile;
-                this.ImagePath = _profile.ImgPath;
+                Title = LocalizedResources["EditProfilePage"];
+                this.Profile = profile;
+                this.ImagePath = profile.ImgPath;
+            }
+            else
+            {
+                Title = LocalizedResources["AddProfilePage"];
             }
         }
         #endregion
 
         #region Commands
-        public ICommand Add => new Command(async() =>
+        public ICommand _AddTappedCommand;
+        public ICommand AddTappedCommand => _AddTappedCommand ??= new Command(OnAddTappedCommandAsync);
+
+        public ICommand _ImageTappedCommand;
+        public ICommand ImageTappedCommand => _ImageTappedCommand ??= new Command(OnImageTappedCommand);
+        #endregion
+
+        #region Methods
+        private async void OnAddTappedCommandAsync()
         {
             Profile.Match_id = _settingsManager.CurrentUser;
             Profile.DateTime = DateTime.Now;
             Profile.ImgPath = ImagePath;
             _profileService.SaveProfile(Profile);
             await _navigationService.GoBackAsync();
-        });
-        public ICommand ImageTap => new Command(() =>
+        }
+        private void OnImageTappedCommand()
         {
             _userDialogs.ActionSheet(new ActionSheetConfig()
                 .SetUseBottomSheet(true)
                 .SetTitle("")
-                .SetCancel("Cancel", null, "ic_cancel.png")
-                .Add("From Gallery", () => Gallery(), "ic_collections.png")
-                .Add("Take a Picture", () => Camera(), "ic_camera_alt.png"));
-        });
-        #endregion
-
-        #region Methods
-        public async void Gallery()
+                .SetCancel(LocalizedResources["CancelLabel"], null, "ic_cancel.png")
+                .Add(LocalizedResources["FromGalleryLabel"], () => TakeFromGalleryAsync(), "ic_collections.png")
+                .Add(LocalizedResources["TakePictureLabel"], () => TakeFromCameraAsync(), "ic_camera_alt.png"));
+        }
+        public async void TakeFromGalleryAsync()
         {
             var image = await _media.PickPhotoAsync();
             if (image != null)
@@ -110,7 +118,7 @@ namespace ProfileBook.ViewModels
                 ImagePath = image.Path;
             }
         }
-        public async void Camera()
+        public async void TakeFromCameraAsync()
         {
             var image = await _media.TakePhotoAsync(new StoreCameraMediaOptions
             {
